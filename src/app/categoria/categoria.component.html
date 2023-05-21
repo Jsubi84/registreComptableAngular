@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
+      <h1 >Categoria</h1>
+      <button (click)="Nou()" mat-fab color="warn" aria-label="Example icon button with a home icon">
+        <mat-icon> add</mat-icon>
+      </button>
+    </div>
+    <!-- <div class="card-body">
+            <ngx-datatable class="material" [rows]="categories" columnMode="force" [headerHeight]="50" [footerHeight]="50"
+                [rowHeight]="50" [scrollbarH]="true" [limit]="20" [columns]="columns">
+                <ngx-datatable-column name="id" [width]="30">ID</ngx-datatable-column>
+                <ngx-datatable-column name="noms">NOM</ngx-datatable-column>
+                <ngx-datatable-column name="descripcio">DESCRIPCIÓ</ngx-datatable-column>
+                <ngx-datatable-column name="res">ACCIONS<button class="btn btn-danger">Delete</button></ngx-datatable-column>
+            </ngx-datatable>
+        </div> -->
+        <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="nom">
+              <th mat-header-cell *matHeaderCellDef>NOM</th>
+              <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="descripcio">
+              <th mat-header-cell *matHeaderCellDef>DESCRIPCIO</th>
+              <td mat-cell *matCellDef="let element"> {{element.descripcio}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="accions">
+              <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
+                <mat-icon>edit</mat-icon></button>
+                <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
+                 <mat-icon>delete</mat-icon></button>
+            </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    <br>
+  </div>
+</div>

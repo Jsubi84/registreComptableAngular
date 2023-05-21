@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="card">
+      <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
+        <h1 >Subcategoria</h1>
+        <button (click)="Nou()" mat-fab color="warn" aria-label="Example icon button with a home icon">
+          <mat-icon> add</mat-icon>
+        </button>
+      </div>
+        <table mat-table [dataSource]="subcategories" class="mat-elevation-z8">
+            
+                <!-- ID Columna -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>ID</th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+                
+                <!-- Nom Columna -->
+                <ng-container matColumnDef="nom">
+                    <th mat-header-cell *matHeaderCellDef>NOM</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+                </ng-container>
+                
+                <!-- Descripció Columna -->
+                <ng-container matColumnDef="descripcio">
+                    <th mat-header-cell *matHeaderCellDef>DESCRIPCIO</th>
+                    <td mat-cell *matCellDef="let element"> {{element.descripcio}} </td>
+                </ng-container>
+
+                <!-- Categoria Columna -->
+                <ng-container matColumnDef="categoria">
+                    <th mat-header-cell *matHeaderCellDef>CATEGORIA</th>
+                    <td mat-cell *matCellDef="let element"> {{element.categoria.id}}__{{element.categoria.nom}}  </td>
+                </ng-container>
+            
+              <!-- Simbol Columna -->
+              <ng-container matColumnDef="accions">
+                <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
+                  <mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
+                   <mat-icon>delete</mat-icon></button>
+              </td>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+      <br>
+    </div>
+  </div>
