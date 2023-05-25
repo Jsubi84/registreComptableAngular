@@ -1,22 +1,11 @@
   <div class="nav-bar">
-    <div class="opcions">
+    <nav class="opcions">
       <button mat-fab (click)="dashboard()" color="primary"><mat-icon>home</mat-icon></button>
       <button mat-mini-fab matTooltip="Categoria" (click)="categoria()" color="primary"><mat-icon>category</mat-icon></button>
       <button mat-mini-fab matTooltip="Subcategoria" (click)="subcategoria()" color="primary"><mat-icon>featured_play_list</mat-icon></button>
       <button mat-mini-fab matTooltip="Registres" (click)="registre()" color="primary"><mat-icon>attach_money</mat-icon></button>
-    </div>
-    <div class="titol">
-      <!-- <h1 style="height: max-content;  text-align: left;">
-        {{title}}
-      </h1> -->
-    </div>
+    </nav>
   </div>
-  <!-- <div class="container d-flex justify-content-center">
-      <button (click)="Listar()" class="btn btn-info">Listar</button>
-      <button (click)="Nuevo()" class="btn btn-info" style="margin-left: 10px;">Nuevo</button>
-      <button (click)="ListarNou()" class="btn btn-dark" style="margin-left: 10px;">Listar</button>
-      <button *ngIf="checkIsEdit()" (click)="NuevoNou()" class="btn btn-dark" style="margin-left: 10px;">Nuevo</button>      
-  </div> -->
 <br>
 <router-outlet></router-outlet>  
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subcategoria } from 'src/app/modelo/subcategoria';
 import { Categoria } from 'src/app/modelo/categoria';
 import { Router } from '@angular/router';
@@ -69,7 +69,6 @@ export class SubcateditComponent implements OnInit {
   Actualizar(subcategoria:Subcategoria){
     this.service.updateSubcategoria(subcategoria).subscribe(
     data=>{
-      this.modelSubcategoria = data;
       this.dialog.simpleAlert("Registre actualitzat","info");
       this.router.navigate(["subcategories"]);
     })

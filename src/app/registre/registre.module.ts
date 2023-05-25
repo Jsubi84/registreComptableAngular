@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegeditComponent } from './regedit/regedit.component';
-import { ServiceCategoria} from '../service/categoria.service';
+import { RegistreService } from '../service/registre.service';
 import { Dialogs } from '../dialogs/dialogs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -12,8 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { RegeditModule } from './regedit/regedit.module';
 import { MatTableModule } from '@angular/material/table';
-
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker'
 
 @NgModule({
   declarations: [
@@ -29,8 +30,12 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatProgressBarModule,
     MatTableModule,
-    RegeditModule
+    RegeditModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
   ],
-  providers: [ServiceCategoria, Dialogs],
+  exports: [],
+  providers: [RegistreService, Dialogs],
 })
 export class RegistreModule { }

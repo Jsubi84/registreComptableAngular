@@ -53,7 +53,6 @@ export class CateditComponent implements OnInit {
 
     this.service.updateCategoria(categoria).subscribe(
     data=>{
-      this.modelCategoria = data;
       this.dialog.simpleAlert("Registre actualitzat","info");
       this.router.navigate(["listCat"]);
     })

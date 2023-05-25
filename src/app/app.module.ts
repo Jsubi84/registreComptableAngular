@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CategoriaModule} from './categoria/categoria.module';
 import { CateditModule } from './categoria/catedit/catedit.module';
+import { RegeditModule } from './registre/regedit/regedit.module';
 import { CommonModule } from '@angular/common';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
 import { RegistreComponent } from './registre/registre.component';
 import { SubcategoriaModule } from './subcategoria/subcategoria.module';
+import { RegistreModule } from './registre/registre.module';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
 
 @NgModule({
   declarations: [
@@ -53,9 +56,13 @@ import { SubcategoriaModule } from './subcategoria/subcategoria.module';
     DashboardModule,
     MatButtonModule,
     MatTooltipModule,
-    SubcategoriaModule
+    SubcategoriaModule, 
+    RegistreModule,
+    MatDatepickerModule,
+    RegeditModule
   ],
-  providers: [CategoriaService, Dialogs],
+  exports: [MatDatepickerModule],
+  providers: [ CategoriaService, Dialogs],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
