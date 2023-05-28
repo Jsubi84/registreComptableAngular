@@ -8,50 +8,50 @@
     </div>
       <table mat-table [dataSource]="registres" class="mat-elevation-z8">
           
-              <!-- ID Columna -->
-              <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>ID</th>
-                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-              </ng-container>
-              
-              <!-- Data Columna -->
-              <ng-container matColumnDef="data">
-                  <th mat-header-cell *matHeaderCellDef>DATA</th>
-                  <td mat-cell *matCellDef="let element"> {{element.data}} </td>
-              </ng-container>
-              
-              <!-- Import Columna -->
-              <ng-container matColumnDef="import">
-                  <th mat-header-cell *matHeaderCellDef>IMPORT</th>
-                  <td mat-cell *matCellDef="let element"> {{element.importreg}} € </td>
-              </ng-container>
+        <!-- ID Columna -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        
+        <!-- Data Columna -->
+        <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef>DATA</th>
+            <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+        </ng-container>
+        
+        <!-- Import Columna -->
+        <ng-container matColumnDef="import">
+            <th mat-header-cell *matHeaderCellDef>IMPORT</th>
+            <td mat-cell *matCellDef="let element"> {{element.importreg}} € </td>
+        </ng-container>
 
-              <!-- Tipus Columna -->
-              <ng-container matColumnDef="tipus">
-                <th mat-header-cell *matHeaderCellDef>TIPUS</th>
-                <td mat-cell *matCellDef="let element"> {{tipusChange(element.tipus)}}  </td>
-              </ng-container>
+        <!-- Tipus Columna -->
+        <ng-container matColumnDef="tipus">
+          <th mat-header-cell *matHeaderCellDef>TIPUS</th>
+          <td mat-cell *matCellDef="let element"> {{tipusChange(element.tipus)}}  </td>
+        </ng-container>
 
-              <!-- Subcategoria Columna -->
-              <ng-container matColumnDef="subcategoria">
-                  <th mat-header-cell *matHeaderCellDef>SUBCATEGORIA</th>
-                  <td mat-cell *matCellDef="let element"> {{element.subcategoria.id}}_{{element.subcategoria.nom}}  </td>
-              </ng-container>
-          
-            <!-- Simbol Columna -->
-            <ng-container matColumnDef="accions">
-              <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
-                <mat-icon>edit</mat-icon></button>
-                <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
-                 <mat-icon>delete</mat-icon></button>
-            </td>
-            </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-    <br>
+        <!-- Subcategoria Columna -->
+        <ng-container matColumnDef="subcategoria">
+            <th mat-header-cell *matHeaderCellDef>SUBCATEGORIA</th>
+            <td mat-cell *matCellDef="let element"> {{element.subcategoria.id}}_{{element.subcategoria.nom}}  </td>
+        </ng-container>
+    
+      <!-- Simbol Columna -->
+      <ng-container matColumnDef="accions">
+        <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
+          <mat-icon>edit</mat-icon></button>
+          <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
+            <mat-icon>delete</mat-icon></button>
+      </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
+  <br><br>
 </div>

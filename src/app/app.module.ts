@@ -59,7 +59,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     SubcategoriaModule, 
     RegistreModule,
     MatDatepickerModule,
-    RegeditModule
+    RegeditModule,
   ],
   exports: [MatDatepickerModule],
   providers: [ CategoriaService, Dialogs],

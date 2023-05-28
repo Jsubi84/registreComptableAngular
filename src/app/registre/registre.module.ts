@@ -15,6 +15,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    MatIconModule,
+    MatButtonToggleModule
   ],
   exports: [],
   providers: [RegistreService, Dialogs],

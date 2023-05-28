@@ -5,55 +5,56 @@
             <h1 *ngIf="isEdit">Actualizar registre</h1>
         </div>
         <div class="card-body">
-            <form class="guardar" action="">
+            <form class="guardar" [formGroup]="registreForm" action="">
+                <mat-form-field *ngIf="false" class="form-group matInput">
+                    <mat-label>id</mat-label>
+                    <input matInput name="id" formControlName="id" placeholder="ID de registre" autocomplete="off" value="">
+                </mat-form-field>
+                <mat-button-toggle-group class="form-group matInput" formControlName="tipus" name="tipus">
+                  <mat-button-toggle class = "options" value= "false"> Despesa </mat-button-toggle>                  
+                  <mat-button-toggle class = "options" value= "true"> Ingres </mat-button-toggle>
+                </mat-button-toggle-group>
+                <br><br>
                 <mat-form-field class="matInput">
                     <mat-label>Subcategoria</mat-label>
                     <input  type="text"
                             id="registre"
                             placeholder="Subcategoria a la qual pertany"
                             aria-label="String"
-                            name="Categoria" 
-                            [(ngModel)]="modelRegistre.subcategoria"
+                            name="Subcategoria" 
                             matInput
                             [formControl]="myControl"
+                            formControlName="subcategoria"
                             [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                      <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="onChangeSubcategory(option)" [value]="option" >
+                      <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="onChangeSubcategory(option)" [value]="option.id" >
                         {{option.id}}_{{option.nom}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
                 <mat-form-field class="form-group matInput">
                     <mat-label>Import</mat-label>
-                    <input matInput name="importreg" type="number" [(ngModel)]="modelRegistre.importreg" placeholder="Import del registre" autocomplete="off" value="">
+                    <input matInput formControlName="importreg" name="importreg" type="number" placeholder="Import del registre" autocomplete="off" value="">
                 </mat-form-field>
-                <br>
-                <mat-form-field class="form-group matInput">
-                    <mat-label>Tipus</mat-label>
-                    <input matInput name="tipus" [(ngModel)]="modelRegistre.tipus" placeholder="Tipus de registre" autocomplete="off"  value="">
-                </mat-form-field>
-                <br>
                 <!-- <mat-form-field class="form-group matInput">
-                  <mat-label>Data</mat-label>
-                  <input matInput name="data" type="text" [(ngModel)]="modelRegistre.data" placeholder="Data del registre" autocomplete="off" value="">
+                    <mat-label>Tipus</mat-label>
+                    <input matInput name="tipus" formControlName="tipus" placeholder="Tipus de registre" autocomplete="off"  value="">
                 </mat-form-field> -->
                 <mat-form-field class="form-group matInput">
                   <mat-label>Choose a date</mat-label>
                   <input  matInput 
                           [matDatepicker]="picker" 
-                          name="data" 
-                          [(ngModel)]="modelRegistre.data" 
-                          (ngModelChange)="modelChanged()" 
-                          placeholder="Data del registre">
+                          name="data"  
+                          placeholder="Data del registre"
+                          formControlName="data">
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <br><br>
-
                 <div class="buttons" style="display:flex ; justify-content: space-between; justify-items: center;">
-                  <button mat-flat-button color="primary" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar(modelRegistre)">Guardar</button>
-                  <button mat-flat-button color="primary" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar(modelRegistre)">Actualitzar</button>
+                  <button mat-flat-button color="primary" type="submit" [disabled]="registreForm.invalid" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar()">Guardar</button>
+                  <button mat-flat-button color="primary" type="submit" [disabled]="registreForm.invalid" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar()">Actualitzar</button>
                   <button mat-flat-button color="link"  class="btn btn-light" (click)="Cancelar()">Cancelar</button>
                 </div>
             </form>
