@@ -3,3 +3,12 @@
    justify-content: center;
    width:  100%; 
 }
+.totals{
+   display: flex;
+   text-align: center;
+   justify-content: center;
+   flex-direction: column;
+}
+.select{
+   width:  50%; 
+}

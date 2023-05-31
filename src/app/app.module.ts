@@ -28,6 +28,7 @@ import { RegistreComponent } from './registre/registre.component';
 import { SubcategoriaModule } from './subcategoria/subcategoria.module';
 import { RegistreModule } from './registre/registre.module';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatSelectModule } from '@angular/material/select'
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     RegistreModule,
     MatDatepickerModule,
     RegeditModule,
+    MatSelectModule
   ],
   exports: [MatDatepickerModule],
   providers: [ CategoriaService, Dialogs],

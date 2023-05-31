@@ -34,4 +34,9 @@ export class RegistreService {
   deleteRegistre(r:Registre){
     return this.http.delete<Registre>(this.Url+"/"+r.id);
   }
+
+  getSumaByTipus(tipus:Boolean, year:number){
+    return this.http.get(this.Url+"/getSumaByTipus?tipus="+tipus+"&year="+year);
+  }
+
 }
