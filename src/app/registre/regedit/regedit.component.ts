@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subcategoria } from 'src/app/modelo/subcategoria';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Dialogs } from 'src/app/dialogs/dialogs'
 import { SubcategoriaService } from 'src/app/service/subcategoria.service';
 import { RegistreService } from 'src/app/service/registre.service';
@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import * as dayjs from 'dayjs';
+
 
 @Component({
   selector: 'app-regedit',
@@ -23,7 +24,7 @@ export class RegeditComponent implements OnInit {
   value = 'Clear';
   avui: string;
 
-  constructor(private formBuilder: FormBuilder, private router:Router, private service:RegistreService,  private serviceSub:SubcategoriaService,private dialog:Dialogs){
+  constructor(private formBuilder: FormBuilder, private router:Router, private _route:ActivatedRoute, private service:RegistreService,  private serviceSub:SubcategoriaService,private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
 
       const now= dayjs();
@@ -69,7 +70,8 @@ export class RegeditComponent implements OnInit {
   }
 
   recuperar(){
-    let id = Number(this.service.id);
+    //let id = Number(this.service.id);
+    let id = this._route.snapshot.params['id'];
     this.service.getRegistreId(id).subscribe(
       data=>{
           this.registreForm = this.formBuilder.group({

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Registre } from '../modelo/registre'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistreService {
 
-  public id:String = "";
   public isEdit:Boolean = false;
 
   constructor(private http:HttpClient) {
@@ -35,8 +35,11 @@ export class RegistreService {
     return this.http.delete<Registre>(this.Url+"/"+r.id);
   }
 
-  getSumaByTipus(tipus:Boolean, year:number){
+  getSumaByTipus(tipus:Boolean, year:number): Observable<any>{
     return this.http.get(this.Url+"/getSumaByTipus?tipus="+tipus+"&year="+year);
   }
 
+  getResumAny(year:number){
+    return this.http.get(this.Url+"/getResumAny?year="+year);
+  }
 }

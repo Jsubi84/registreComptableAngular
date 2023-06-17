@@ -7,7 +7,6 @@ import { Categoria } from '../modelo/categoria'
 })
 export class CategoriaService {
 
-  public id: String = "";
   public isEdit:Boolean = false;
 
   constructor(private http:HttpClient) {

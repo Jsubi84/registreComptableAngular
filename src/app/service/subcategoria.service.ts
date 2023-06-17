@@ -6,8 +6,7 @@ import { Subcategoria } from '../modelo/subcategoria'
   providedIn: 'root'
 })
 export class SubcategoriaService {
-
-  public id:String = "";
+  
   public isEdit:Boolean = false;
 
   constructor(private http:HttpClient) {

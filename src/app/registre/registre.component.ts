@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subcategoria } from 'src/app/modelo/subcategoria';
 import { RegistreService } from '../service/registre.service';
 import { Router } from '@angular/router'
 import { Dialogs } from 'src/app/dialogs/dialogs'
@@ -26,6 +25,7 @@ export class RegistreComponent implements OnInit{
   ngOnInit(): void {
     this.service.getRegistre().subscribe
       (data=>{
+        console.log(data);
         this.registres = data;
     })   
     this.progress = false;
@@ -38,10 +38,7 @@ export class RegistreComponent implements OnInit{
 
 
   Editar(registre:Registre){
-    this.router.navigate(["regedit/"]);
-    if (registre.id != undefined){
-      this.service.id = registre.id.toString();
-    }
+    this.router.navigate(["regedit/", registre.id]);
     this.service.isEdit = true;
   }
 

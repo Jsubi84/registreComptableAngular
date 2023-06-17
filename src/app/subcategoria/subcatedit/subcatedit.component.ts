@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subcategoria } from 'src/app/modelo/subcategoria';
 import { Categoria } from 'src/app/modelo/categoria';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import { Dialogs } from 'src/app/dialogs/dialogs'
 import { SubcategoriaService } from 'src/app/service/subcategoria.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
@@ -23,7 +23,7 @@ export class SubcateditComponent implements OnInit {
   isEdit: Boolean = false;
   value = 'Clear';
 
-  constructor(private router:Router, private service:SubcategoriaService,  private serviceCat:CategoriaService,private dialog:Dialogs){
+  constructor(private router:Router, private _route:ActivatedRoute, private service:SubcategoriaService,  private serviceCat:CategoriaService,private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
   }
 
@@ -58,7 +58,7 @@ export class SubcateditComponent implements OnInit {
   }
 
   recuperar(){
-    let id = Number(this.service.id);
+    let id = this._route.snapshot.params['id'];
     this.service.getSubcategoriaId(id).subscribe(
       data=>{
         this.modelSubcategoria=data;

@@ -37,10 +37,7 @@ export class SubcategoriaComponent implements OnInit {
 
 
   Editar(subcategoria:Subcategoria){
-    this.router.navigate(["subcatedit/"]);
-    if (subcategoria.id != undefined){
-      this.service.id = subcategoria.id.toString();
-    }
+    this.router.navigate(["subcatedit/", subcategoria.id]);
     this.service.isEdit = true;
   }
 

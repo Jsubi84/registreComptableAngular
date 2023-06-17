@@ -16,7 +16,10 @@ const routes: Routes = [
   {path:'subcategories', component:SubcategoriaComponent},
   {path:'registres', component:RegistreComponent},
   {path:'subcatedit', component:SubcateditComponent},
-  {path:'regedit', component:RegeditComponent}
+  {path:'regedit', component:RegeditComponent},
+  {path:'regedit/:id', component:RegeditComponent},
+  {path:'editCat/:id', component:CateditComponent},
+  {path:'subcatedit/:id', component:SubcateditComponent},
 ];
 
 @NgModule({

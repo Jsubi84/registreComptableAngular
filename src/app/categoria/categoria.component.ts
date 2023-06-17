@@ -39,10 +39,7 @@ export class CategoriaComponent implements OnInit {
 
 
   Editar(categoria:Categoria){
-    this.router.navigate(["editCat/"]);
-    if (categoria.id != undefined){
-      this.service.id = categoria.id.toString();
-    }
+    this.router.navigate(["editCat/", categoria.id]);
     this.service.isEdit = true;
   }
 

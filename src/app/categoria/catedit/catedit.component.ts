@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/modelo/categoria';
 import { CategoriaService } from '../../service/categoria.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Dialogs } from 'src/app/dialogs/dialogs'
 
 
@@ -17,7 +17,7 @@ export class CateditComponent implements OnInit {
   isEdit: Boolean = false;
   value = 'Clear';
 
-  constructor(private router:Router, private service:CategoriaService, private dialog:Dialogs){
+  constructor(private router:Router, private _route:ActivatedRoute, private service:CategoriaService, private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
   }
 
@@ -40,7 +40,7 @@ export class CateditComponent implements OnInit {
 
   recuperar(){
   if (this.isEdit){
-    let id = Number(this.service.id);
+    let id = this._route.snapshot.params['id'];
     this.service.getCategoriaId(id).subscribe(
       data=>{
         this.modelCategoria=data;

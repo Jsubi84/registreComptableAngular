@@ -1,5 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { RegistreService } from '../service/registre.service';
+import { ResumAny } from 'src/app/modelo/resumAny';
+
 
 const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
 
@@ -8,16 +10,15 @@ const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent {
 
   displayedColumns: string[] = ['mes', 'ingres', 'despesa'];
 
   selected = 0;
   anys: number [] = [];
-  totalDespesa: number = 0;
-  totalIngres: number = 0;
-  totalAny!: number[];
-
+  public totalDespesa: number = 0;
+  public totalIngres: number = 0;
+  totalAny: ResumAny[] = [];
 
   constructor(private service:RegistreService){
     const anyPresent = new Date();
@@ -26,26 +27,41 @@ export class DashboardComponent implements OnInit{
     this.anys.push(anyPresent.getFullYear()-1);
     this.anys.push(anyPresent.getFullYear()+1);
     this.anys.sort();
-    this.selected = Number(anyPresent.getFullYear());
+    this.selected = Number(anyPresent.getFullYear());   
 
-    this.resumMesAny();
+    this.actualitzaDades();
   }
 
-  resumMesAny(){
-    this.service.getSumaByTipus(true, this.selected).subscribe
+  actualitzaDades(){
+    this.totalDespesa = 0;
+    this.totalIngres= 0;
+
+    this.totalAny = [];
+
+    for (let i = 0; i < 12; i++) {
+      const row = {
+        mes: mesosAny[i],
+        ingres: +0,
+        despesa: +0,
+      }
+      this.totalAny.push(row);
+    }    
+    this.service.getResumAny(this.selected).subscribe
     (data=> {
-      //Mirar com posar les dades si arriba un array de dades
-      this.totalIngres = Number(data)}
-    )
-    this.service.getSumaByTipus(false, this.selected).subscribe
-    (data=> {
-      this.totalDespesa = Number(data)}
-    ) 
+      const dades: number[] | any  = data;
+        for (let i = 0; i < dades.length ; i++) {
+          this.totalAny[dades[i][0]-1].ingres = dades[i][1] == null ? 0 : dades[i][1];
+          this.totalIngres+= Number(dades[i][1]);
+          this.totalAny[dades[i][0]-1].despesa= dades[i][2] == null ? 0 : dades[i][2];
+          this.totalDespesa += Number(dades[i][2]);
+        }
+        const row = {
+        mes: 'TOTALS',
+        ingres: this.totalIngres,
+        despesa: this.totalDespesa,
+      }
+      this.totalAny.push(row);  
+      this.totalAny = [...this.totalAny];     
+      });
   }
-
-  ngOnInit(): void {
-
-  }
-
-
 }
