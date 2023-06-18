@@ -57,8 +57,8 @@ export class DashboardComponent {
         }
         const row = {
         mes: 'TOTALS',
-        ingres: this.totalIngres,
-        despesa: this.totalDespesa,
+        ingres: +this.totalIngres.toFixed(2),
+        despesa: +this.totalDespesa.toFixed(2),
       }
       this.totalAny.push(row);  
       this.totalAny = [...this.totalAny];     

@@ -33,4 +33,8 @@ export class SubcategoriaService {
   deleteSubcategoria(s:Subcategoria){
     return this.http.delete<Subcategoria>(this.Url+"/"+s.id);
   }
+
+  ckSubCatToDeleteCategoria(id:number){
+    return this.http.get(this.Url+"/ckDeleteCat?id="+id);
+  }
 }

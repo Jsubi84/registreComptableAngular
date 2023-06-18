@@ -6,10 +6,10 @@ export class Dialogs{
 
 constructor(){}
 
-public simpleAlert = (missatge : string, tipus : SweetAlertIcon) =>
+public simpleAlert = (missatge : string, titol : string, tipus : SweetAlertIcon) =>
   Swal.fire(
+    titol,
     missatge,
-    'El registre ha estat actualitzat',
     tipus,
   )
   

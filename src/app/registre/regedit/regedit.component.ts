@@ -34,7 +34,7 @@ export class RegeditComponent implements OnInit {
         id: new FormControl(),
         subcategoria : new FormControl('', Validators.required),
         importreg: new FormControl('', Validators.required),
-        data: new FormControl(new Date, Validators.required),
+        data: new FormControl(new Date(), Validators.required),
         tipus: new FormControl('false', Validators.required),
       });
   }
@@ -70,7 +70,6 @@ export class RegeditComponent implements OnInit {
   }
 
   recuperar(){
-    //let id = Number(this.service.id);
     let id = this._route.snapshot.params['id'];
     this.service.getRegistreId(id).subscribe(
       data=>{
@@ -93,7 +92,7 @@ export class RegeditComponent implements OnInit {
   Actualizar(){
     this.service.updateRegistre(this.registreForm.value).subscribe(
     data=>{
-      this.dialog.simpleAlert("Registre actualitzat","info");
+      this.dialog.simpleAlert("Registre actualitzat","El registre ha estat actualitzat","info");
       this.router.navigate(["registres"]);
     })
     this.service.isEdit = false;

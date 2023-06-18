@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Categoria } from 'src/app/modelo/categoria';
 import { CategoriaService } from '../../service/categoria.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dialogs } from 'src/app/dialogs/dialogs'
+import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,17 +13,22 @@ import { Dialogs } from 'src/app/dialogs/dialogs'
 
 export class CateditComponent implements OnInit {
 
-  modelCategoria = new Categoria;
+  categoriaForm!:FormGroup;
   isEdit: Boolean = false;
   value = 'Clear';
 
-  constructor(private router:Router, private _route:ActivatedRoute, private service:CategoriaService, private dialog:Dialogs){
+  constructor(private formBuilder: FormBuilder, private router:Router, private _route:ActivatedRoute, private service:CategoriaService, private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
+
+    this.categoriaForm = new FormGroup({
+      nom: new FormControl('', Validators.required),
+      descripcio : new FormControl(),
+    });
   }
 
 
-  Guardar(categoria: Categoria){
-    this.service.createCategoria(categoria)
+  Guardar(){
+    this.service.createCategoria(this.categoriaForm.value)
     .subscribe(data=>{
         this.dialog.registregGuardat();
         this.router.navigate(["listCat"]);
@@ -31,7 +36,9 @@ export class CateditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recuperar();
+    if (this.isEdit){
+      this.recuperar();
+    }
   }
 
   Cancelar(){
@@ -39,21 +46,22 @@ export class CateditComponent implements OnInit {
   }
 
   recuperar(){
-  if (this.isEdit){
     let id = this._route.snapshot.params['id'];
     this.service.getCategoriaId(id).subscribe(
       data=>{
-        this.modelCategoria=data;
-      }
-      );
-    }
+        this.categoriaForm = this.formBuilder.group({
+          id: data.id,
+          nom: data.nom,
+          descripcio: data.descripcio
+      });
+    });
   }
 
-  Actualizar(categoria:Categoria){
+  Actualizar(){
 
-    this.service.updateCategoria(categoria).subscribe(
+    this.service.updateCategoria(this.categoriaForm.value).subscribe(
     data=>{
-      this.dialog.simpleAlert("Registre actualitzat","info");
+      this.dialog.simpleAlert("Registre actualitzat","El registre ha estat actualitzat","info");
       this.router.navigate(["listCat"]);
     })
     this.service.isEdit = false;

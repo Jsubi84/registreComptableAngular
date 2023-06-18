@@ -24,13 +24,13 @@
                     <!-- Ingres Column -->
                     <ng-container matColumnDef="ingres">
                         <th mat-header-cell *matHeaderCellDef> Ingres </th>
-                        <td mat-cell *matCellDef="let element"> {{element.ingres}} </td >
+                        <td mat-cell *matCellDef="let element"> {{+element.ingres.toFixed(2)}} </td >
                     </ng-container>
 
                     <!-- Despesa Column -->
                     <ng-container matColumnDef="despesa">
                         <th mat-header-cell *matHeaderCellDef> Despesa </th>
-                        <td mat-cell *matCellDef="let element"> {{element.despesa}} </td>
+                        <td mat-cell *matCellDef="let element"> {{+element.despesa.toFixed(2)}} </td>
                     </ng-container>
                     
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -42,43 +42,7 @@
     </div>
     <div class="col-md-5">
         <div class="card">
-            <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
-                <h1 >RESUM</h1>
-                <mat-form-field class="select">
-                    <mat-label>Selecciona l'any</mat-label>
-                    <mat-select [(value)]="selected" (selectionChange)="actualitzaDades()">
-                        <mat-option *ngFor="let any of anys" [value]="any">
-                            {{any}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="totalMesos">
-                <table mat-table [dataSource]="totalAny" class="mat-elevation-z8">
-                    
-                    <!-- Mes Column -->
-                    <ng-container matColumnDef="mes">
-                        <th mat-header-cell *matHeaderCellDef> Mes</th>
-                        <td mat-cell *matCellDef="let element"> {{element.mes}} </td>
-                    </ng-container>
-                    
-                    <!-- Ingres Column -->
-                    <ng-container matColumnDef="ingres">
-                        <th mat-header-cell *matHeaderCellDef> Ingres </th>
-                        <td mat-cell *matCellDef="let element"> {{element.ingres}} </td >
-                    </ng-container>
-
-                    <!-- Despesa Column -->
-                    <ng-container matColumnDef="despesa">
-                        <th mat-header-cell *matHeaderCellDef> Despesa </th>
-                        <td mat-cell *matCellDef="let element"> {{element.despesa}} </td>
-                    </ng-container>
-                    
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
-            
-                </table>
-            </div>
+  
         </div>
     </div>
 </div>

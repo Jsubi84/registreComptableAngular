@@ -5,20 +5,24 @@
             <h1 *ngIf="isEdit">Actualizar Categoria</h1>
         </div>
         <div class="card-body">
-            <form class="guardar" action="">
+            <form class="guardar" [formGroup]="categoriaForm" action="">
+                <mat-form-field *ngIf="false" class="form-group matInput">
+                    <mat-label>id</mat-label>
+                    <input matInput name="id" formControlName="id" placeholder="ID de registre" autocomplete="off" value="">
+                </mat-form-field>
                 <mat-form-field class="form-group matInput">
                     <mat-label>Nom</mat-label>
-                    <input matInput name="nom" [(ngModel)]="modelCategoria.nom" placeholder="Titol que definira la categoria" autocomplete="off" value="">
+                    <input matInput name="nom" formControlName= "nom" placeholder="Titol que definira la categoria" autocomplete="off" value="">
                 </mat-form-field>
                 <br>
                 <mat-form-field class="form-group matInput">
                     <mat-label>Descripció</mat-label>
-                    <textarea name="descripcio" [(ngModel)]="modelCategoria.descripcio" spellcheck="false" matInput placeholder="Explicar que inclou la categoria" value=""></textarea>
+                    <textarea name="descripcio" formControlName= "descripcio" spellcheck="false" matInput placeholder="Explicar que inclou la categoria" value=""></textarea>
                 </mat-form-field>
                 <br>
                 <div class="buttons" style="display:flex ; justify-content: space-between; justify-items: center;">
-                  <button mat-flat-button color="primary" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar(modelCategoria)">Guardar</button>
-                  <button mat-flat-button color="primary" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar(modelCategoria)">Actualitzar</button>
+                  <button mat-flat-button color="primary" [disabled]="categoriaForm.invalid" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar()">Guardar</button>
+                  <button mat-flat-button color="primary" [disabled]="categoriaForm.invalid" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar()">Actualitzar</button>
                   <button mat-flat-button color="link"  class="btn btn-light" (click)="Cancelar()">Cancelar</button>
                 </div>
             </form>

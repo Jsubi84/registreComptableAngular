@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { CateditModule } from './catedit/catedit.module';
 import { MatTableModule } from '@angular/material/table';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatProgressBarModule,
     CateditModule,
-    MatTableModule
+    MatTableModule,
+    ReactiveFormsModule
   ],
   providers: [CategoriaService, Dialogs],
 })

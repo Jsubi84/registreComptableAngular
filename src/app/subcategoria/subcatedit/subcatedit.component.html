@@ -5,7 +5,7 @@
             <h1 *ngIf="isEdit">Actualitzar Subcategoria</h1>
         </div>
         <div class="card-body">
-            <form class="guardar" action="">
+            <form class="guardar" [formGroup]="subcategoriaForm" action="">
                 <mat-form-field class="matInput">
                     <mat-label>Categoria</mat-label>
                     <input  type="text"
@@ -13,10 +13,11 @@
                             placeholder="Categoria a la qual pertany"
                             aria-label="String"
                             name="Categoria" 
-                            [(ngModel)]="modelSubcategoria.categoria"
+                            [formControl]="myControl"
+                            formControlName="categoria"
                             matInput
                             [formControl]="myControl"
-                            [matAutocomplete]="auto">
+                            [matAutocomplete]="auto" required="true">
                     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                       <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="onChangeCategory(option)" [value]="option" >
                         {{option.id}}_{{option.nom}}
@@ -25,16 +26,16 @@
                   </mat-form-field>
                 <mat-form-field class="form-group matInput">
                     <mat-label>Nom</mat-label>
-                    <input matInput name="nom" [(ngModel)]="modelSubcategoria.nom" placeholder="Titol que definira la subcategoria" autocomplete="off" value="">
+                    <input matInput name="nom" required="true" formControlName= "nom" placeholder="Titol que definira la subcategoria" autocomplete="off" value="">
                 </mat-form-field>
                 <br>
                 <mat-form-field class="form-group matInput">
                     <mat-label>Descripció</mat-label>
-                    <textarea name="descripcio" [(ngModel)]="modelSubcategoria.descripcio" spellcheck="false" matInput placeholder="Explicar que inclou la subcategoria" value=""></textarea>
+                    <textarea name="descripcio" formControlName= "descripcio"  spellcheck="false" matInput placeholder="Explicar que inclou la subcategoria" value=""></textarea>
                 </mat-form-field>
                 <div class="buttons" style="display:flex ; justify-content: space-between; justify-items: center;">
-                  <button mat-flat-button color="primary" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar(modelSubcategoria)">Guardar</button>
-                  <button mat-flat-button color="primary" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar(modelSubcategoria)">Actualitzar</button>
+                  <button mat-flat-button color="primary" [disabled]="subcategoriaForm.invalid" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar()">Guardar</button>
+                  <button mat-flat-button color="primary" [disabled]="subcategoriaForm.invalid" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar()">Actualitzar</button>
                   <button mat-flat-button color="link"  class="btn btn-light" (click)="Cancelar()">Cancelar</button>
                 </div>
             </form>

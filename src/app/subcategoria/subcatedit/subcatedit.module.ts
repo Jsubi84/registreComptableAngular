@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserModule,
     MatInputModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
   ]
 })
 export class SubcateditModule { }
