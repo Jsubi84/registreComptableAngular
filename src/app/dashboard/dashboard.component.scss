@@ -1,3 +1,4 @@
+
 .const{
    display: flex;
    justify-content: center;
@@ -9,6 +10,42 @@
    justify-content: center;
    flex-direction: column;
 }
+
 .select{
    width:  50%; 
 }
+
+.opcio{
+   display: flex;
+   justify-content: space-between;   
+   justify-items: center;
+}
+
+.titol h1{
+   font-size: medium; 
+   margin-bottom:0;
+   align-content: center;
+}
+
+.buttons{
+   align-self: flex-start;
+   margin-right: auto;
+}
+
+.titol{
+   align-self: center;
+   margin-right: auto;
+}
+
+.seleccio{
+   width: auto;
+   align-self: flex-end;
+   margin-right: auto;
+}
+
+
+
+
+
+
+

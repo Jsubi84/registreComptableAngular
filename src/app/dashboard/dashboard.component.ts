@@ -20,6 +20,8 @@ export class DashboardComponent {
   public totalIngres: number = 0;
   totalAny: ResumAny[] = [];
 
+  visibleResum:Boolean = false;
+
   constructor(private service:RegistreService){
     const anyPresent = new Date();
 

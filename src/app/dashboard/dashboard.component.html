@@ -1,19 +1,29 @@
-<div class="container" style="display:flex; flex-direction: row; justify-content: space-between;">
+<div class="container" >
     <div class="col-md-5">
         <div class="card">
-            <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
-                <h1 >RESUM</h1>
-                <mat-form-field class="select">
-                    <mat-label>Selecciona l'any</mat-label>
-                    <mat-select [(value)]="selected" (selectionChange)="actualitzaDades()">
-                        <mat-option *ngFor="let any of anys" [value]="any">
-                            {{any}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <div class="card-header" style="display:flex; flex-direction: column;">
+                <div class = "opcio">
+                    <div class="buttons">
+                        <button class="button" mat-icon-button *ngIf="this.visibleResum" matTooltip="Mostra" (click)="this.visibleResum = false"><mat-icon>visibility</mat-icon></button>
+                        <button class="button" mat-icon-button *ngIf="!this.visibleResum" matTooltip="Amaga" (click)="this.visibleResum = true"><mat-icon>visibility_off</mat-icon></button>
+                    </div>
+                    <div *ngIf="!this.visibleResum" class="titol">
+                        <h1 >RESUM PER ANYS</h1>  
+                    </div>                      
+                    <div class = "seleccio">
+                        <mat-form-field  *ngIf="this.visibleResum" class="select">
+                            <mat-label>Any</mat-label>
+                            <mat-select [(value)]="selected" (selectionChange)="actualitzaDades()">
+                                <mat-option *ngFor="let any of anys" [value]="any">
+                                    {{any}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
             </div>
-            <div class="totalMesos">
-                <table mat-table [dataSource]="totalAny" class="mat-elevation-z8">
+            <div *ngIf="this.visibleResum"  class="totalMesos">
+                <table mat-table [dataSource]="totalAny" class="mat-elevation-z5">
                     
                     <!-- Mes Column -->
                     <ng-container matColumnDef="mes">
@@ -38,11 +48,6 @@
             
                 </table>
             </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="card">
-  
         </div>
     </div>
 </div>
