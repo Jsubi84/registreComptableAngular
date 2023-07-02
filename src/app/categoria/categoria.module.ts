@@ -14,7 +14,6 @@ import { CateditModule } from './catedit/catedit.module';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     CateditComponent,

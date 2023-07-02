@@ -6,6 +6,7 @@ export class Registre{
         importreg: number = 0;
         tipus: boolean = false;
         subcategoria = new Subcategoria();
+        descripcio: string = "";
         constructor(){}
 }
 

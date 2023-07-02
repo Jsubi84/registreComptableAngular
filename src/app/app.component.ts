@@ -30,7 +30,6 @@ export class AppComponent {
     this.router.navigate(["registres"]);
   }
 
-  
   checkIsEdit() {
     if (!this.service.isEdit ){
       return true;
@@ -39,5 +38,4 @@ export class AppComponent {
     }
   }
   
-
 }

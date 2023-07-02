@@ -1,6 +1,8 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RegistreService } from '../service/registre.service';
 import { ResumAny } from 'src/app/modelo/resumAny';
+import { ConfigService } from '../service/config.service';
+import { Observable } from 'rxjs';
 
 
 const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
@@ -10,10 +12,11 @@ const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   displayedColumns: string[] = ['mes', 'ingres', 'despesa'];
 
+  configuracio!: Observable<any>;
   selected = 0;
   anys: number [] = [];
   public totalDespesa: number = 0;
@@ -22,7 +25,9 @@ export class DashboardComponent {
 
   visibleResum:Boolean = false;
 
-  constructor(private service:RegistreService){
+  constructor(private configService: ConfigService, private service:RegistreService){
+    this.configuracio = configService.getConfig();
+
     const anyPresent = new Date();
 
     this.anys.push(anyPresent.getFullYear());
@@ -30,8 +35,12 @@ export class DashboardComponent {
     this.anys.push(anyPresent.getFullYear()+1);
     this.anys.sort();
     this.selected = Number(anyPresent.getFullYear());   
+  }
 
-    this.actualitzaDades();
+  ngOnInit(): void {
+    this.configuracio.subscribe(()=>{ 
+      this.actualitzaDades();
+    });
   }
 
   actualitzaDades(){
@@ -64,6 +73,6 @@ export class DashboardComponent {
       }
       this.totalAny.push(row);  
       this.totalAny = [...this.totalAny];     
-      });
+    });
   }
 }

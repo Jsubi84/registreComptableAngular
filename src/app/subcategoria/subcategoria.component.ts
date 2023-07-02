@@ -4,6 +4,9 @@ import { SubcategoriaService } from '../service/subcategoria.service';
 import { Router } from '@angular/router'
 import { Dialogs } from 'src/app/dialogs/dialogs'
 import Swal from 'sweetalert2';
+import { RegistreService } from '../service/registre.service';
+import { ConfigService } from '../service/config.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-subcategoria',
@@ -12,30 +15,34 @@ import Swal from 'sweetalert2';
 })
 export class SubcategoriaComponent implements OnInit {
 
+  configuracio!: Observable<any>;
   subcategories!:Subcategoria[];
   progress!: Boolean;
+  progres: Boolean = false;
 
   displayedColumns: string[] = ['id', 'nom', 'descripcio', 'categoria','accions'];
   dataSource = this.subcategories;
 
-  constructor(private service:SubcategoriaService, private router:Router, private dialog:Dialogs){
-    this.progress = true;
+  constructor(private configService: ConfigService, private registre_service: RegistreService, private service:SubcategoriaService, private router:Router, private dialog:Dialogs){
+    this.configuracio = configService.getConfig();
+    this.progres = true;
   }
 
   ngOnInit(): void {
-    this.service.getSubcategorias().subscribe
-      (data=>{
-        this.subcategories = data;
-        this.subcategories.sort((x,y)=> x.id- y.id);
-    })   
-    this.progress = false;
+    this.configuracio.subscribe(()=>{
+      this.service.getSubcategorias().subscribe
+        (data=>{
+          this.subcategories = data;
+          this.subcategories.sort((x,y)=> x.id- y.id);
+          this.progres = false;
+      })  
+    }); 
   }
 
   Nou(){
     this.router.navigate(["subcatedit"]);
     this.service.isEdit = false;
   } 
-
 
   Editar(subcategoria:Subcategoria){
     this.router.navigate(["subcatedit/", subcategoria.id]);
@@ -53,13 +60,19 @@ export class SubcategoriaComponent implements OnInit {
       confirmButtonText: 'Si, borra\'l'
     }).then((result) => {
       if (result.isConfirmed) {
+        this.registre_service.ckRegistresToDeleteSubcategoria(subcategoria.id).subscribe
+        ((data)=>{ 
+          if (data == 0){
             this.service.deleteSubcategoria(subcategoria).subscribe
             (data=>{
               this.subcategories= this.subcategories.filter(s=>s!==subcategoria);
             })  
-
-        this.dialog.registregBorrat();    
+            this.dialog.registregBorrat();    
+          }else{
+            this.dialog.simpleAlert("La subcategoria no es pot borrar ja que te "+ data +" registres associats","Subcategoria no borrable","info");
+          } 
+        })
       }
-    })
+    })    
   }
 }

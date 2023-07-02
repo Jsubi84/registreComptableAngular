@@ -6,6 +6,7 @@
         <mat-icon> add</mat-icon>
       </button>
     </div>
+    <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
     <!-- <div class="card-body">
             <ngx-datatable class="material" [rows]="categories" columnMode="force" [headerHeight]="50" [footerHeight]="50"
                 [rowHeight]="50" [scrollbarH]="true" [limit]="20" [columns]="columns">
@@ -17,7 +18,7 @@
         </div> -->
         <table mat-table [dataSource]="categories" class="mat-elevation-z8">
           
-            <!-- Position Column -->
+            <!-- ID Column -->
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>ID</th>
               <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -29,7 +30,7 @@
               <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
             </ng-container>
           
-            <!-- Weight Column -->
+            <!-- Description Column -->
             <ng-container matColumnDef="descripcio">
               <th mat-header-cell *matHeaderCellDef>DESCRIPCIO</th>
               <td mat-cell *matCellDef="let element"> {{element.descripcio}} </td>

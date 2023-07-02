@@ -4,6 +4,8 @@ import { Router } from '@angular/router'
 import { Dialogs } from 'src/app/dialogs/dialogs'
 import Swal from 'sweetalert2';
 import { Registre } from '../modelo/registre';
+import { ConfigService } from '../service/config.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-registre',
@@ -12,23 +14,27 @@ import { Registre } from '../modelo/registre';
 })
 export class RegistreComponent implements OnInit{
 
+  configuracio!: Observable<any>;
   registres!:Registre[];
   progress!: Boolean;
+  progres: Boolean = false;
 
   displayedColumns: string[] = ['id', 'data', 'import', 'tipus', 'subcategoria','accions'];
   dataSource = this.registres;
 
-  constructor(private service:RegistreService, private router:Router, private dialog:Dialogs){
-    this.progress = true;
+  constructor(private configService: ConfigService, private service:RegistreService, private router:Router, private dialog:Dialogs){
+    this.configuracio = configService.getConfig();
+    this.progres = true;
   }
 
   ngOnInit(): void {
-    this.service.getRegistre().subscribe
-      (data=>{
-        console.log(data);
-        this.registres = data;
-    })   
-    this.progress = false;
+    this.configuracio.subscribe(()=>{
+      this.service.getRegistre().subscribe
+        (data=>{
+          this.registres = data;
+          this.progres = false;
+      })   
+    });
   }
 
   Nou(){

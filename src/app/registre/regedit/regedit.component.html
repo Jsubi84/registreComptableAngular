@@ -48,6 +48,11 @@
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <br><br>
+                <mat-form-field class="form-group matInput">
+                    <mat-label>Descripció</mat-label>
+                    <textarea name="descripcio" rows = 3 formControlName= "descripcio" spellcheck="false" matInput placeholder="Detall del registre" value=""></textarea>
+                </mat-form-field>
+                <br>
                 <div class="buttons" style="display:flex ; justify-content: space-between; justify-items: center;">
                   <button mat-flat-button color="primary" type="submit" [disabled]="registreForm.invalid" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar()">Guardar</button>
                   <button mat-flat-button color="primary" type="submit" [disabled]="registreForm.invalid" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar()">Actualitzar</button>

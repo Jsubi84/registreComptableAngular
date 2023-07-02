@@ -6,6 +6,7 @@
           <mat-icon> add</mat-icon>
         </button>
       </div>
+      <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
         <table mat-table [dataSource]="subcategories" class="mat-elevation-z8">
             
           <!-- ID Columna -->

@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Categoria } from '../modelo/categoria'
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,14 @@ import { Categoria } from '../modelo/categoria'
 export class CategoriaService {
 
   public isEdit:Boolean = false;
+  public Url: string = "";
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private configService: ConfigService) {
+    this.configService.getConfig().subscribe(config => {
+    this.Url= config.apiUrl + "categories";
+    });    
   }
 
-  Url='http://localhost:8080/api/v1/categories';
-  
   getCategorias(){
     return this.http.get<Categoria[]>(this.Url);
   }

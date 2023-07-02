@@ -36,6 +36,7 @@ export class RegeditComponent implements OnInit {
         importreg: new FormControl('', Validators.required),
         data: new FormControl(new Date(), Validators.required),
         tipus: new FormControl('false', Validators.required),
+        descripcio: new FormControl(''),
       });
   }
 
@@ -78,7 +79,8 @@ export class RegeditComponent implements OnInit {
               subcategoria: data.subcategoria,
               importreg: data.importreg,
               data: data.data,
-              tipus: data.tipus
+              tipus: data.tipus,
+              descripcio: data.descripcio,
           });
 
         const tipusControl = this.registreForm?.get('tipus');

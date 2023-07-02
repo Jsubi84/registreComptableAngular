@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Subcategoria } from '../modelo/subcategoria'
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,13 @@ import { Subcategoria } from '../modelo/subcategoria'
 export class SubcategoriaService {
   
   public isEdit:Boolean = false;
+  public Url: string = "";
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private configService: ConfigService) {
+    this.configService.getConfig().subscribe(config => {
+      this.Url= config.apiUrl + "subcategories";
+      }); 
   }
-
-  Url='http://localhost:8080/api/v1/subcategories';
   
   getSubcategorias(){
     return this.http.get<Subcategoria[]>(this.Url);

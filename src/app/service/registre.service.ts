@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Registre } from '../modelo/registre'
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,13 @@ import { Observable } from 'rxjs';
 export class RegistreService {
 
   public isEdit:Boolean = false;
+  public Url: string = "";
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private configService: ConfigService) {
+    this.configService.getConfig().subscribe(config => {
+      this.Url= config.apiUrl + "registres";
+      }); 
   }
-
-  Url='http://localhost:8080/api/v1/registres';
   
   getRegistre(){
     return this.http.get<Registre[]>(this.Url);
@@ -41,5 +44,9 @@ export class RegistreService {
 
   getResumAny(year:number){
     return this.http.get(this.Url+"/getResumAny?year="+year);
+  }
+
+  ckRegistresToDeleteSubcategoria(id:number){
+    return this.http.get(this.Url+"/ckDeleteSubcat?id="+id);
   }
 }

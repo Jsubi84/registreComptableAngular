@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from  "@angular/forms"
 import { CategoriaService} from './service/categoria.service';
-import { HttpClientModule } from '@angular/common/http'
 import { Dialogs } from './dialogs/dialogs';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import { SubcategoriaModule } from './subcategoria/subcategoria.module';
 import { RegistreModule } from './registre/registre.module';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatSelectModule } from '@angular/material/select'
+import { ConfigService } from './service/config.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { MatSelectModule } from '@angular/material/select'
     MatSelectModule
   ],
   exports: [MatDatepickerModule],
-  providers: [ CategoriaService, Dialogs],
+  providers: [ConfigService, CategoriaService, Dialogs],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
