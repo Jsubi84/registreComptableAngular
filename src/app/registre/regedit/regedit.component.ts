@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS,MAT_DATE_LOCALE } from '@angular/material/core'
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
 import { Subcategoria } from 'src/app/modelo/subcategoria';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Dialogs } from 'src/app/dialogs/dialogs'
@@ -9,11 +11,28 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import * as dayjs from 'dayjs';
 
+export const DATE_PICKER_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY'
+  },
+  display:{
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateAllyLable: 'DD/MM/YYYY',
+    monthYearAllyLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-regedit',
   templateUrl: './regedit.component.html',
-  styleUrls: ['./regedit.component.scss']
+  styleUrls: ['./regedit.component.scss'],
+  providers:[
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps:[ MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]},
+    {provide: MAT_DATE_FORMATS, useValue: DATE_PICKER_FORMAT},
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc:true, strict:true, firstDayOfWeek:0}},
+    {provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+  ],
 })
 export class RegeditComponent implements OnInit {
   registreForm!:FormGroup;

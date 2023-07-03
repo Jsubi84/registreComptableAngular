@@ -4,7 +4,6 @@ import { ResumAny } from 'src/app/modelo/resumAny';
 import { ConfigService } from '../service/config.service';
 import { Observable } from 'rxjs';
 
-
 const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
 
 @Component({
