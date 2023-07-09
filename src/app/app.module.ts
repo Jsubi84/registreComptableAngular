@@ -1,12 +1,11 @@
 import { NgModule} from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from  "@angular/forms"
 import { CategoriaService} from './service/categoria.service';
 import { Dialogs } from './dialogs/dialogs';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CategoriaModule} from './categoria/categoria.module';
@@ -44,7 +43,6 @@ import { ConfigService } from './service/config.service';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgxDatatableModule,
     BrowserAnimationsModule,
     MatSidenavModule, 
     CategoriaModule,

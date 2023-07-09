@@ -9,7 +9,6 @@ import { RegistreService } from 'src/app/service/registre.service';
 import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import * as dayjs from 'dayjs';
 
 export const DATE_PICKER_FORMAT = {
   parse: {
@@ -41,13 +40,9 @@ export class RegeditComponent implements OnInit {
   filteredOptions!: Observable<Subcategoria[]>;
   isEdit: Boolean = false;
   value = 'Clear';
-  avui: string;
 
   constructor(private formBuilder: FormBuilder, private router:Router, private _route:ActivatedRoute, private service:RegistreService,  private serviceSub:SubcategoriaService,private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
-
-      const now= dayjs();
-      this.avui = now.format('DD-MM-YYYY');
 
       this.registreForm = new FormGroup({
         id: new FormControl(),

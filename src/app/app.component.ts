@@ -31,11 +31,6 @@ export class AppComponent {
   }
 
   checkIsEdit() {
-    if (!this.service.isEdit ){
-      return true;
-    } else{
-      return false;
-    }
+    return !this.service.isEdit ?  true :  false;
   }
-  
 }

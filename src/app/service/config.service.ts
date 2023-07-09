@@ -9,7 +9,6 @@ export class ConfigService {
   constructor(private http: HttpClient) {}
 
   getConfig(): Observable<any> {
-    console.log("url enviada");
     return this.http.get<any>(this.configUrl);
   }
 }

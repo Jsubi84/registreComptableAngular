@@ -7,15 +7,6 @@
       </button>
     </div>
     <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
-    <!-- <div class="card-body">
-            <ngx-datatable class="material" [rows]="categories" columnMode="force" [headerHeight]="50" [footerHeight]="50"
-                [rowHeight]="50" [scrollbarH]="true" [limit]="20" [columns]="columns">
-                <ngx-datatable-column name="id" [width]="30">ID</ngx-datatable-column>
-                <ngx-datatable-column name="noms">NOM</ngx-datatable-column>
-                <ngx-datatable-column name="descripcio">DESCRIPCIÓ</ngx-datatable-column>
-                <ngx-datatable-column name="res">ACCIONS<button class="btn btn-danger">Delete</button></ngx-datatable-column>
-            </ngx-datatable>
-        </div> -->
         <table mat-table [dataSource]="categories" class="mat-elevation-z8">
           
             <!-- ID Column -->
