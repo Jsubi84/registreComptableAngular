@@ -1,5 +1,6 @@
 import { NgModule} from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { RegistreModule } from './registre/registre.module';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatSelectModule } from '@angular/material/select'
 import { ConfigService } from './service/config.service';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { ConfigService } from './service/config.service';
     DashboardComponent,
     SubcategoriaComponent,
     RegistreComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import { ConfigService } from './service/config.service';
     RegistreModule,
     MatDatepickerModule,
     RegeditModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   exports: [MatDatepickerModule],
   providers: [ConfigService, CategoriaService, Dialogs],

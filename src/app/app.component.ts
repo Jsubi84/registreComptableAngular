@@ -1,17 +1,32 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component , OnInit} from '@angular/core';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { LoadingService } from './service/loading.service';
 import { CategoriaService } from './service/categoria.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'Registre Comptable';
-  showFiller = false;
+export class AppComponent implements OnInit{
 
-  constructor (private router:Router, private service:CategoriaService){}
+  title = 'Registre Comptable';
+
+  constructor(private router: Router, public loadingService: LoadingService, private service:CategoriaService) {}
+
+  ngOnInit() {
+    // Suscribirse al evento de inicio de navegación para controlar el estado de carga
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        // Si es la carga inicial de la aplicación, mostramos el spinner
+        if (this.loadingService.isFirstLoad) {
+          this.loadingService.setLoading(true);
+          this.loadingService.setIsFirstLoad(false);
+        }
+      }
+    });
+  }
 
   dashboard(){
     this.router.navigate(["dashboard"]);
