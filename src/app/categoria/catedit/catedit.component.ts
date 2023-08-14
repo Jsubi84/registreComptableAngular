@@ -21,6 +21,7 @@ export class CateditComponent implements OnInit {
     this.isEdit= this.service.isEdit;
 
     this.categoriaForm = new FormGroup({
+      tipus: new FormControl('false', Validators.required),
       nom: new FormControl('', Validators.required),
       descripcio : new FormControl(),
     });
@@ -51,13 +52,21 @@ export class CateditComponent implements OnInit {
       data=>{
         this.categoriaForm = this.formBuilder.group({
           id: data.id,
+          tipus: data.tipus,
           nom: data.nom,
           descripcio: data.descripcio
       });
+
+      const tipusControl = this.categoriaForm?.get('tipus');
+      if (tipusControl) {
+        tipusControl.setValue(""+ this.categoriaForm.value.tipus+"");
+      }
     });
   }
 
   Actualizar(){
+
+    console.log(this.categoriaForm);
 
     this.service.updateCategoria(this.categoriaForm.value).subscribe(
     data=>{

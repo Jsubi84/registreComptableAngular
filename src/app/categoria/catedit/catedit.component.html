@@ -10,6 +10,11 @@
                     <mat-label>id</mat-label>
                     <input matInput name="id" formControlName="id" placeholder="ID de registre" autocomplete="off" value="">
                 </mat-form-field>
+                <mat-button-toggle-group class="form-group matInput" formControlName="tipus" name="tipus">
+                    <mat-button-toggle class = "options" value= "false"> Despesa </mat-button-toggle>                  
+                    <mat-button-toggle class = "options" value= "true"> Ingres </mat-button-toggle>
+                </mat-button-toggle-group>
+                <br><br>
                 <mat-form-field class="form-group matInput">
                     <mat-label>Nom</mat-label>
                     <input matInput name="nom" formControlName= "nom" placeholder="Titol que definira la categoria" autocomplete="off" value="">

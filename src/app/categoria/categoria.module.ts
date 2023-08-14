@@ -13,6 +13,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CateditModule } from './catedit/catedit.module';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatProgressBarModule,
     CateditModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonToggleModule 
   ],
   providers: [CategoriaService, Dialogs],
 })
