@@ -65,9 +65,6 @@ export class CateditComponent implements OnInit {
   }
 
   Actualizar(){
-
-    console.log(this.categoriaForm);
-
     this.service.updateCategoria(this.categoriaForm.value).subscribe(
     data=>{
       this.dialog.simpleAlert("Registre actualitzat","El registre ha estat actualitzat","info");

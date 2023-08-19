@@ -20,7 +20,7 @@ export class SubcategoriaComponent implements OnInit {
   progress!: Boolean;
   progres: Boolean = false;
 
-  displayedColumns: string[] = ['id', 'nom', 'descripcio', 'categoria','accions'];
+  displayedColumns: string[] = ['nom', 'descripcio', 'categoria','accions'];
   dataSource = this.subcategories;
 
   constructor(private configService: ConfigService, private registre_service: RegistreService, private service:SubcategoriaService, private router:Router, private dialog:Dialogs){

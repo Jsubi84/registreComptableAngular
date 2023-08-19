@@ -19,7 +19,7 @@ export class RegistreComponent implements OnInit{
   progress!: Boolean;
   progres: Boolean = false;
 
-  displayedColumns: string[] = ['id', 'data', 'import', 'tipus', 'subcategoria','accions'];
+  displayedColumns: string[] = ['data', 'import', 'subcategoria','accions'];
   dataSource = this.registres;
 
   constructor(private configService: ConfigService, private service:RegistreService, private router:Router, private dialog:Dialogs){
@@ -66,14 +66,6 @@ export class RegistreComponent implements OnInit{
         this.dialog.registregBorrat();    
       }
     })
-  }
-
-  public tipusChange(tipus:Boolean): String{
-    if (tipus){
-      return "Ingres";
-    }else{
-      return "Despesa";
-    }
   }
 }
 

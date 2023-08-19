@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subcategoria } from 'src/app/modelo/subcategoria';
 import { Categoria } from 'src/app/modelo/categoria';
 import { Router , ActivatedRoute} from '@angular/router';
 import { Dialogs } from 'src/app/dialogs/dialogs'
@@ -58,7 +57,8 @@ export class SubcateditComponent implements OnInit {
     if (this.isEdit){
       this.recuperar();
     }
-  }
+
+  }    
 
   Cancelar(){
     this.router.navigate(["subcategories"]);
@@ -67,13 +67,13 @@ export class SubcateditComponent implements OnInit {
   recuperar(){
     let id = this._route.snapshot.params['id'];
     this.service.getSubcategoriaId(id).subscribe(
-      data=>{
-        this.subcategoriaForm = this.formBuilder.group({
-          id: data.id,
-          categoria: data.categoria,
-          nom: data.nom,
-          descripcio: data.descripcio,
-      });
+      data=>{ 
+        this.subcategoriaForm.patchValue({
+            id: data.id,
+            categoria: data.categoria,
+            nom: data.nom,
+            descripcio: data.descripcio,
+        });
       }
     );     
   }

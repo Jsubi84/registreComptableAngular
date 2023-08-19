@@ -1,4 +1,4 @@
-<div class= "d-flex justify-content-center">
+<div class= "container">
   <div class="card">
     <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
       <h1 >Categoria</h1>
@@ -9,11 +9,11 @@
     <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
         <table mat-table [dataSource]="categories" class="mat-elevation-z8">
           
-            <!-- ID Column -->
+            <!-- ID Column 
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>ID</th>
               <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
+            </ng-container>-->
           
             <!-- Name Column -->
             <ng-container matColumnDef="nom">
@@ -25,6 +25,12 @@
             <ng-container matColumnDef="descripcio">
               <th mat-header-cell *matHeaderCellDef>DESCRIPCIO</th>
               <td mat-cell *matCellDef="let element"> {{element.descripcio}} </td>
+            </ng-container>
+
+            <!-- TIPUS Column -->
+            <ng-container matColumnDef="tipus">
+              <th mat-header-cell *matHeaderCellDef>TIPUS</th>
+              <td mat-cell *matCellDef="let element"> {{tipusChange(element.tipus)}}  </td>
             </ng-container>
           
             <!-- Symbol Column -->

@@ -49,7 +49,6 @@ export class RegeditComponent implements OnInit {
         subcategoria : new FormControl('', Validators.required),
         importreg: new FormControl('', Validators.required),
         data: new FormControl(new Date(), Validators.required),
-        tipus: new FormControl('false', Validators.required),
         descripcio: new FormControl(''),
       });
   }
@@ -88,19 +87,14 @@ export class RegeditComponent implements OnInit {
     let id = this._route.snapshot.params['id'];
     this.service.getRegistreId(id).subscribe(
       data=>{
-          this.registreForm = this.formBuilder.group({
-              id: data.id,
-              subcategoria: data.subcategoria,
-              importreg: data.importreg,
-              data: data.data,
-              tipus: data.tipus,
-              descripcio: data.descripcio,
-          });
-
-        const tipusControl = this.registreForm?.get('tipus');
-        if (tipusControl) {
-          tipusControl.setValue(""+ this.registreForm.value.tipus+"");
-        }
+        this.registreForm.patchValue({
+          id: data.id,
+          subcategoria: data.subcategoria,
+          importreg: data.importreg,
+          data: data.data,
+          tipus: data.tipus,
+          descripcio: data.descripcio,
+        });
       }
     );
   }

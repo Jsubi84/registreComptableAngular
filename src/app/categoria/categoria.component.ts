@@ -21,7 +21,7 @@ export class CategoriaComponent implements OnInit {
   categories!:Categoria[];
   progres: Boolean = false;
 
-  displayedColumns: string[] = ['id', 'nom', 'descripcio','accions'];
+  displayedColumns: string[] = [ 'nom', 'descripcio','tipus', 'accions'];
   dataSource = this.categories;
 
   constructor(private configService: ConfigService, private service:CategoriaService, private subCat_service: SubcategoriaService, private router:Router, private dialog:Dialogs){
@@ -75,5 +75,13 @@ export class CategoriaComponent implements OnInit {
         })
       }
     })
+  }
+
+  public tipusChange(tipus:Boolean): String{
+    if (tipus){
+      return "Ingres";
+    }else{
+      return "Despesa";
+    }
   }
 }
