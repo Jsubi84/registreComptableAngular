@@ -92,7 +92,6 @@ export class RegeditComponent implements OnInit {
           subcategoria: data.subcategoria,
           importreg: data.importreg,
           data: data.data,
-          tipus: data.tipus,
           descripcio: data.descripcio,
         });
       }
