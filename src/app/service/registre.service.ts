@@ -22,6 +22,10 @@ export class RegistreService {
     return this.http.get<Registre[]>(this.Url);
   }
 
+  getRegistreOrderByDataDesc(){
+    return this.http.get<Registre[]>(this.Url+"/allOrderByData");
+  }
+
   createRegistre(registre:Registre){
     return this.http.post<Registre>(this.Url, registre);
   }

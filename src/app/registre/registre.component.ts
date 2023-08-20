@@ -29,7 +29,7 @@ export class RegistreComponent implements OnInit{
 
   ngOnInit(): void {
     this.configuracio.subscribe(()=>{
-      this.service.getRegistre().subscribe
+      this.service.getRegistreOrderByDataDesc().subscribe
         (data=>{
           this.registres = data;
           this.progres = false;
