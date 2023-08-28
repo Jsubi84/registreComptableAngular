@@ -1,4 +1,32 @@
 <div class="container">
+    <div class="filers d-flex justify-content-between mb-4 mt-4">
+      <mat-form-field>
+        <mat-label>Entrar un rang de dates</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="dateRangePicker">
+          <input matStartDate placeholder="Data inici"  formControlName="start"> 
+          <input matEndDate placeholder="Data final"  formControlName="end"  (dateChange)="dateRangeChange(range.value)">
+        </mat-date-range-input>
+        <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dateRangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #dateRangePicker disabled="false"></mat-date-range-picker>
+      </mat-form-field>
+      <button class="reset" mat-stroked-button (click)="resetFiltres()">Reset Filtres</button>
+      <mat-form-field >
+        <mat-label>Subcategoria</mat-label>
+        <input  type="text"
+                placeholder="Subcategoria a filtrar"
+                aria-label="String"
+                name="Subcategoria" 
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="onChangeSubcategory(option)" [value]="option" >
+            {{option.id}}_{{option.nom}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+  </div> 
   <div class="card">
     <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
       <h1 >Registre</h1>

@@ -1,10 +1,10 @@
 import { NgModule} from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from  "@angular/forms"
+import { FormsModule, ReactiveFormsModule } from  "@angular/forms"
 import { CategoriaService} from './service/categoria.service';
 import { Dialogs } from './dialogs/dialogs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +31,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select'
 import { ConfigService } from './service/config.service';
 import { LoaderComponent } from './loader/loader.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
+
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { LoaderComponent } from './loader/loader.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,

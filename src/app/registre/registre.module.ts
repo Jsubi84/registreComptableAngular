@@ -17,6 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSortModule } from '@angular/material/sort';
+import { MatNativeDateModule } from '@angular/material/core';
+import { JsonPipe }  from '@angular/common';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
+    MatNativeDateModule,
     FormsModule,
     BrowserModule,
     MatFormFieldModule,
@@ -39,7 +42,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatDatepickerModule,
     MatIconModule,
     MatButtonToggleModule,
-    MatSortModule
+    MatSortModule,
+    JsonPipe 
   ],
   exports: [],
   providers: [RegistreService, Dialogs],
