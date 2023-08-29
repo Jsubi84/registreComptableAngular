@@ -42,6 +42,8 @@ export class RegistreComponent implements OnInit{
     end: new FormControl<Date | null>(null),
   });
 
+  dataRange: any;
+  subcategoria: any;
   options!:Subcategoria[];
   optionsBuit!:Subcategoria[];
   filteredOptions!: Observable<Subcategoria[]>;
@@ -140,8 +142,12 @@ export class RegistreComponent implements OnInit{
 
   public onChangeSubcategory(sub : Subcategoria){
     let result;
+    this.subcategoria = sub
     if (!this.filterDateRange){
-      result = this.registresMemory.filter(option => option.subcategoria.id == sub.id);      
+      result = this.registresMemory.filter(option => option.subcategoria.id == sub.id);    
+    }else if (this.filterDateRange && this.filterSubcat){
+      this.registres = this.registresMemory.filter(option => option.subcategoria.id == sub.id); 
+      result = this.registres.filter(option => new Date(option.data).valueOf() >=  this.dataRange.start._d.valueOf() && new Date(option.data).valueOf() <= this.dataRange.end._d.valueOf());
     }else{
       result = this.registres.filter(option => option.subcategoria.id == sub.id);    
     }
@@ -151,9 +157,13 @@ export class RegistreComponent implements OnInit{
 
   dateRangeChange(range: any){
     let result;
+    this.dataRange = range
     if (range.end != null) {
-      if (!this.filterSubcat){      
+      if (!this.filterSubcat){     
         result = this.registresMemory.filter(option => new Date(option.data).valueOf() >=  range.start._d.valueOf() && new Date(option.data).valueOf() <= range.end._d.valueOf());
+      }else if (this.filterDateRange && this.filterSubcat){
+        this.registres =  this.registresMemory.filter(option => new Date(option.data).valueOf() >=  this.dataRange.start._d.valueOf() && new Date(option.data).valueOf() <= this.dataRange.end._d.valueOf());
+        result = this.registres.filter(option => option.subcategoria.id == this.subcategoria.id);
       }else{
         result = this.registres.filter(option => new Date(option.data).valueOf() >=  range.start._d.valueOf() && new Date(option.data).valueOf() <= range.end._d.valueOf());
       } 
