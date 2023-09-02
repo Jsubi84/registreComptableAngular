@@ -1,52 +1,69 @@
 <div class="container">
-    <div class="card">
-      <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
-        <h1 >Subcategoria</h1>
-        <button (click)="Nou()" mat-fab color="warn" aria-label="Example icon button with a home icon">
-          <mat-icon> add</mat-icon>
-        </button>
-      </div>
-      <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
-        <table mat-table [dataSource]="subcategories" class="mat-elevation-z8">
-            
-          <!-- ID Columna 
-          <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef>ID</th>
-              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-          </ng-container>-->
-          
-          <!-- Nom Columna -->
-          <ng-container matColumnDef="nom">
-              <th mat-header-cell *matHeaderCellDef>NOM</th>
-              <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
-          </ng-container>
-          
-          <!-- Descripció Columna -->
-          <ng-container matColumnDef="descripcio">
-              <th mat-header-cell *matHeaderCellDef>DESCRIPCIO</th>
-              <td mat-cell *matCellDef="let element"> {{element.descripcio}} </td>
-          </ng-container>
-
-          <!-- Categoria Columna -->
-          <ng-container matColumnDef="categoria">
-              <th mat-header-cell *matHeaderCellDef>CATEGORIA</th>
-              <td mat-cell *matCellDef="let element"> {{element.categoria.id}}_{{element.categoria.nom}}  </td>
-          </ng-container>
-            
-          <!-- Simbol Columna -->
-          <ng-container matColumnDef="accions">
-            <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
-            <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
-            <mat-icon>edit</mat-icon></button>
-            <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
-            <mat-icon>delete</mat-icon></button>
-          </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </div>
-    <br><br>
+  <div class="filers d-flex justify-content-end mb-4 mt-4">
+    <mat-form-field class="matInput">
+      <mat-label>Categoria</mat-label>
+      <input  type="text"
+              placeholder="Categoria a filtrar"
+              name="Categoria" 
+              [formControl]="myControl"
+              matInput
+              [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="onChangeCategory(option)" [value]="option" >
+          {{option.id}}_{{option.nom}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button class="reset item" mat-stroked-button (click)="resetFiltres()">Reset Filtres</button>
   </div>
+  <div class="card">
+    <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
+      <h1 >Subcategoria</h1>
+      <button (click)="Nou()" mat-fab color="warn" aria-label="Example icon button with a home icon">
+        <mat-icon> add</mat-icon>
+      </button>
+    </div>
+    <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
+      <table mat-table [dataSource]="subcategories" class="mat-elevation-z8">
+          
+        <!-- ID Columna 
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>-->
+        
+        <!-- Nom Columna -->
+        <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef>NOM</th>
+            <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+        </ng-container>
+        
+        <!-- Descripció Columna -->
+        <ng-container matColumnDef="descripcio">
+            <th mat-header-cell *matHeaderCellDef>DESCRIPCIO</th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcio}} </td>
+        </ng-container>
+
+        <!-- Categoria Columna -->
+        <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef>CATEGORIA</th>
+            <td mat-cell *matCellDef="let element"> {{element.categoria.id}}_{{element.categoria.nom}}  </td>
+        </ng-container>
+          
+        <!-- Simbol Columna -->
+        <ng-container matColumnDef="accions">
+          <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
+          <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
+          <mat-icon>edit</mat-icon></button>
+          <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
+          <mat-icon>delete</mat-icon></button>
+        </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  <br><br>
+</div>

@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="filers d-flex justify-content-between mb-4 mt-4">
-      <mat-form-field>
+    <div class="filers d-flex justify-content-end mb-4 mt-4">
+      <mat-form-field class="item">
         <mat-label>Entrar un rang de dates</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="dateRangePicker">
           <input matStartDate placeholder="Data inici"  formControlName="start"> 
@@ -10,8 +10,7 @@
         <mat-datepicker-toggle matIconSuffix [for]="dateRangePicker"></mat-datepicker-toggle>
         <mat-date-range-picker #dateRangePicker disabled="false"></mat-date-range-picker>
       </mat-form-field>
-      <button class="reset" mat-stroked-button (click)="resetFiltres()">Reset Filtres</button>
-      <mat-form-field >
+      <mat-form-field class="item">
         <mat-label>Subcategoria</mat-label>
         <input  type="text"
                 placeholder="Subcategoria a filtrar"
@@ -25,6 +24,7 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+      <button class="reset item" mat-stroked-button (click)="resetFiltres()">Reset Filtres</button>
   </div> 
   <div class="card">
     <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">

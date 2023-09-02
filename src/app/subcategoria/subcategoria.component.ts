@@ -7,6 +7,10 @@ import Swal from 'sweetalert2';
 import { RegistreService } from '../service/registre.service';
 import { ConfigService } from '../service/config.service';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
+import { Categoria } from 'src/app/modelo/categoria';
+import { CategoriaService } from 'src/app/service/categoria.service';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-subcategoria',
@@ -15,15 +19,20 @@ import { Observable } from 'rxjs';
 })
 export class SubcategoriaComponent implements OnInit {
 
+  myControl = new FormControl<string | Categoria>('');
+  options!:Categoria[];
+  filteredOptions!: Observable<Categoria[]>;
+
   configuracio!: Observable<any>;
   subcategories!:Subcategoria[];
+  subcategoriesMemory!:Subcategoria[];
   progress!: Boolean;
   progres: Boolean = false;
 
   displayedColumns: string[] = ['nom', 'descripcio', 'categoria','accions'];
   dataSource = this.subcategories;
 
-  constructor(private configService: ConfigService, private registre_service: RegistreService, private service:SubcategoriaService, private router:Router, private dialog:Dialogs){
+  constructor(private serviceCat:CategoriaService, private configService: ConfigService, private registre_service: RegistreService, private service:SubcategoriaService, private router:Router, private dialog:Dialogs){
     this.configuracio = configService.getConfig();
     this.progres = true;
   }
@@ -33,8 +42,22 @@ export class SubcategoriaComponent implements OnInit {
       this.service.getSubcategorias().subscribe
         (data=>{
           this.subcategories = data;
+          this.subcategoriesMemory = data;
           this.subcategories.sort((x,y)=> x.id- y.id);
           this.progres = false;
+
+          this.serviceCat.getCategorias().subscribe
+          (data=>{
+            this.options = data;
+          })    
+          this.filteredOptions = this.myControl.valueChanges.pipe(
+            startWith(''),
+            map(value => {
+              const nom = typeof value === 'string' ? value : value?.nom;
+              return nom ? this._filter(nom as string) : this.options;
+             }),
+          );
+
       })  
     }); 
   }
@@ -75,4 +98,29 @@ export class SubcategoriaComponent implements OnInit {
       }
     })    
   }
+
+  private _filter(nom: string): any[] {
+    const filterValue = nom.toLowerCase();
+    return this.options.filter(option => option.nom.toLowerCase().includes(filterValue));
+  }
+
+  displayFn(cat: Categoria): string {
+    if (cat.id == 0) {
+      return "";
+    }else{
+      return cat && cat.id+'_'+cat.nom ? cat.id+'_'+cat.nom : '';
+    }
+  }
+
+  resetFiltres(){
+    this.subcategories = this.subcategoriesMemory;
+    this.myControl.reset();
+  }
+
+  public onChangeCategory(cat : Categoria){
+    let result;
+    result = this.subcategoriesMemory.filter(option => option.categoria.id == cat.id);    
+    this.subcategories = result;
+  }
+
 }

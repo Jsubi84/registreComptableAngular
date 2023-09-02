@@ -6,7 +6,7 @@ import { SubcategoriaService } from 'src/app/service/subcategoria.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
+import { FormControl, FormGroup,  Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-subcatedit',
@@ -22,7 +22,7 @@ export class SubcateditComponent implements OnInit {
   isEdit: Boolean = false;
   value = 'Clear';
 
-  constructor(private formBuilder: FormBuilder, private router:Router, private _route:ActivatedRoute, private service:SubcategoriaService,  private serviceCat:CategoriaService,private dialog:Dialogs){
+  constructor(private router:Router, private _route:ActivatedRoute, private service:SubcategoriaService,  private serviceCat:CategoriaService,private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
 
     this.subcategoriaForm = new FormGroup({
