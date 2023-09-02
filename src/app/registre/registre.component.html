@@ -15,7 +15,6 @@
         <mat-label>Subcategoria</mat-label>
         <input  type="text"
                 placeholder="Subcategoria a filtrar"
-                aria-label="String"
                 name="Subcategoria" 
                 matInput
                 [formControl]="myControl"
@@ -43,25 +42,22 @@
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>-->
         
-        <!-- Data Columna -->
         <ng-container matColumnDef="data">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>DATA</th>
             <td mat-cell *matCellDef="let element"> {{element.data | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
         
-        <!-- Import Columna -->
         <ng-container matColumnDef="import">
             <th mat-header-cell *matHeaderCellDef>IMPORT</th>
             <td mat-cell *matCellDef="let element"> {{element.importreg}} € </td>
         </ng-container>
 
-        <!-- Subcategoria Columna -->
+
         <ng-container matColumnDef="subcategoria">
             <th mat-header-cell *matHeaderCellDef>SUBCATEGORIA</th>
             <td mat-cell *matCellDef="let element"> {{element.subcategoria.id}}_{{element.subcategoria.nom}}  </td>
         </ng-container>
     
-      <!-- Simbol Columna -->
       <ng-container matColumnDef="accions">
         <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
         <td mat-cell *matCellDef="let element">
@@ -77,4 +73,4 @@
     </table>
   </div>
   <br><br>
-</div>
+</div> 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Registre } from '../modelo/registre'
-import { Observable } from 'rxjs';
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -15,15 +14,15 @@ export class RegistreService {
   constructor(private http:HttpClient, private configService: ConfigService) {
     this.configService.getConfig().subscribe(config => {
       this.Url= config.apiUrl + "registres";
-      }); 
+    }); 
   }
   
   getRegistre(){
     return this.http.get<Registre[]>(this.Url);
   }
 
-  findAllRegWithSort(){
-    return this.http.get<Registre[]>(this.Url+"/findAllRegWithSort");
+  findAllWithSort(){
+    return this.http.get<Registre[]>(this.Url+"/findAllWithSort");
   }
 
   createRegistre(registre:Registre){
@@ -40,10 +39,6 @@ export class RegistreService {
 
   deleteRegistre(r:Registre){
     return this.http.delete<Registre>(this.Url+"/"+r.id);
-  }
-
-  getSumaByTipus(tipus:Boolean, year:number): Observable<any>{
-    return this.http.get(this.Url+"/getSumaByTipus?tipus="+tipus+"&year="+year);
   }
 
   getResumAny(year:number){

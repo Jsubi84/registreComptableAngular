@@ -1,7 +1,8 @@
 import { Component , OnInit} from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { LoadingService } from './service/loading.service';
-import { CategoriaService } from './service/categoria.service';
+import { ConfigService } from './service/config.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -12,19 +13,23 @@ import { CategoriaService } from './service/categoria.service';
 export class AppComponent implements OnInit{
 
   title = 'Registre Comptable';
+  configuracio!: Observable<any>;
 
-  constructor(private router: Router, public loadingService: LoadingService, private service:CategoriaService) {}
+  constructor(private router: Router, public loadingService: LoadingService, private configService: ConfigService) {
+    this.configuracio = configService.getConfig();
+  }
 
   ngOnInit() {
-    // Suscribirse al evento de inicio de navegación para controlar el estado de carga
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        // Si es la carga inicial de la aplicación, mostramos el spinner
-        if (this.loadingService.isFirstLoad) {
-          this.loadingService.setLoading(true);
-          this.loadingService.setIsFirstLoad(false);
+    this.configuracio.subscribe(()=>{
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationStart) {
+          // Si es la carga inicial de la aplicación, mostramos el spinner
+          if (this.loadingService.isFirstLoad) {
+            this.loadingService.setLoading(true);
+            this.loadingService.setIsFirstLoad(false);
+          }
         }
-      }
+      });
     });
   }
 
@@ -34,7 +39,6 @@ export class AppComponent implements OnInit{
   
   categoria(){
     this.router.navigate(["listCat"]);
-    this.service.isEdit = false;
   }
 
   subcategoria(){
@@ -43,9 +47,5 @@ export class AppComponent implements OnInit{
 
   registre(){
     this.router.navigate(["registres"]);
-  }
-
-  checkIsEdit() {
-    return !this.service.isEdit ?  true :  false;
   }
 }

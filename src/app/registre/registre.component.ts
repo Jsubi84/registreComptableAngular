@@ -42,13 +42,13 @@ export class RegistreComponent implements OnInit{
     end: new FormControl<Date | null>(null),
   });
 
+  configuracio!: Observable<any>;
   dataRange: any;
   subcategoria: any;
   options!:Subcategoria[];
   optionsBuit!:Subcategoria[];
   filteredOptions!: Observable<Subcategoria[]>;
   myControl = new FormControl<string | Subcategoria>('');
-  configuracio!: Observable<any>;
   registres!:Registre[];
   registresMemory!:Registre[];
   progress!: Boolean;
@@ -63,33 +63,32 @@ export class RegistreComponent implements OnInit{
     this.progres = true;
   }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.configuracio.subscribe(()=>{
-      this.service.findAllRegWithSort().subscribe
+      this.service.findAllWithSort().subscribe
         (data=>{
           this.registres = data;
           this.registresMemory = data;
           this.progres = false;
       })   
-    });
       this.serviceSub.getSubcategorias().subscribe
       (data=>{
         this.options = data;
-      })    
+      })  
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),
         map(value => {
           const nom = typeof value === 'string' ? value : value?.nom;
           return nom ? this._filter(nom as string) : this.optionsBuit;//this.options;
-         }),
+          }),
       );
-  }
+    });
+   }
 
   Nou(){
     this.router.navigate(["regedit"]);
     this.service.isEdit = false;
   } 
-
 
   Editar(registre:Registre){
     this.router.navigate(["regedit/", registre.id]);
