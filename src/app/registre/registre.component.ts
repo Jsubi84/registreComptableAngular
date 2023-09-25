@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { RegistreService } from '../service/registre.service';
 import { Router } from '@angular/router'
 import { Dialogs } from 'src/app/dialogs/dialogs'
@@ -11,6 +11,8 @@ import { SubcategoriaService } from '../service/subcategoria.service';
 import { Observable, map, startWith } from 'rxjs';
 import { DateAdapter, MAT_DATE_FORMATS,MAT_DATE_LOCALE } from '@angular/material/core'
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 export const DATE_PICKER_FORMAT = {
   parse: {
@@ -37,11 +39,14 @@ export const DATE_PICKER_FORMAT = {
 })
 export class RegistreComponent implements OnInit{
 
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
 
+  pageableData: any; 
   configuracio!: Observable<any>;
   dataRange: any;
   subcategoria: any;
@@ -55,6 +60,10 @@ export class RegistreComponent implements OnInit{
   progres: Boolean = false;
   filterDateRange : Boolean = false; 
   filterSubcat : Boolean = false; 
+  regPaginator:any;
+  totalItems = 0; 
+  itemsPerPage = 10;
+  
 
   displayedColumns: string[] = ['data', 'import', 'subcategoria','accions'];
 
@@ -63,13 +72,37 @@ export class RegistreComponent implements OnInit{
     this.progres = true;
   }
 
-   ngOnInit(): void {
+  ngAfterViewInit() {
+    this.paginator.page.subscribe((event) => {
+      const currentPageIndex = event.pageIndex; 
+      const itemsPerPage = event.pageSize; 
+      // Carregar dades al canviar el paginador 
+      this.loadData(currentPageIndex, itemsPerPage);
+    });
+  }
+
+  loadData(currentPage: number, perPage: number) {
+    this.service.findallPaged(currentPage, perPage, 'data,desc').subscribe
+    (data=>{
+      this.pageableData = data;
+      this.registres = this.pageableData.content;
+      this.registresMemory = this.pageableData.content;
+      this.progres = false;       
+    })  
+  }
+
+  ngOnInit(): void {
     this.configuracio.subscribe(()=>{
-      this.service.findAllWithSort().subscribe
+      //this.service.findAllWithSort().subscribe
+      this.service.findallPaged(0, 10, 'data,desc').subscribe
         (data=>{
-          this.registres = data;
-          this.registresMemory = data;
+          this.pageableData = data;
+          this.totalItems= this.pageableData.totalElements;
+          this.registres = this.pageableData.content;
+          this.registresMemory = this.pageableData.content;
           this.progres = false;
+          this.regPaginator = new MatTableDataSource<Registre>(this.registres);
+          this.regPaginator.paginator = this.paginator;        
       })   
       this.serviceSub.getSubcategorias().subscribe
       (data=>{
@@ -80,10 +113,10 @@ export class RegistreComponent implements OnInit{
         map(value => {
           const nom = typeof value === 'string' ? value : value?.nom;
           return nom ? this._filter(nom as string) : this.optionsBuit;//this.options;
-          }),
-      );
-    });
-   }
+         }),
+       );
+     });
+  }
 
   Nou(){
     this.router.navigate(["regedit"]);

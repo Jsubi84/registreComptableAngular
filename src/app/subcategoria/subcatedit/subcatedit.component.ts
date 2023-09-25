@@ -36,7 +36,7 @@ export class SubcateditComponent implements OnInit {
   Guardar(){
     this.service.createSubcategoria(this.subcategoriaForm.value)
     .subscribe(data=>{
-        this.dialog.registregGuardat();
+        this.dialog.info('La subcategoria s\'ha guardat correctament','success');
         this.router.navigate(["subcategories"]);
     })
   }
@@ -81,7 +81,7 @@ export class SubcateditComponent implements OnInit {
   Actualizar(){
     this.service.updateSubcategoria(this.subcategoriaForm.value).subscribe(
     data=>{
-      this.dialog.simpleAlert("Registre actualitzat","El registre ha estat actualitzat", "info");
+      this.dialog.simpleAlert("La subcategoria ha estat actualitzada","Subategoria actualitzada","info");
       this.router.navigate(["subcategories"]);
     })
     this.service.isEdit = false;

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class Dialogs{
 
-constructor(){}
+constructor(private router:Router){}
 
 public simpleAlert = (missatge : string, titol : string, tipus : SweetAlertIcon) =>
   Swal.fire(
@@ -12,15 +13,33 @@ public simpleAlert = (missatge : string, titol : string, tipus : SweetAlertIcon)
     missatge,
     tipus,
   )
-  
-  public registregGuardat = () =>
+
+  public info = (titol : string, tipus : SweetAlertIcon) =>
   Swal.fire({
     position: 'center',
-    icon: 'success',
-    title: 'El registre s\'ha guardat correctament',
+    icon: tipus,
+    title: titol,
     showConfirmButton: false,
-    timer: 1000
+    timer: 1500
   })
+
+  // public registregGuardat = () =>
+  // Swal.fire({
+  //   position: 'center',
+  //   icon: 'success',
+  //   title: 'El registre s\'ha guardat correctament',
+  //   showConfirmButton: false,
+  //   timer: 1500
+  // })
+
+  // public registregNoGuardat = () =>
+  // Swal.fire({
+  //   position: 'center',
+  //   icon: 'info',
+  //   title: 'El registre ha estat descartat',
+  //   showConfirmButton: false,
+  //   timer: 1500
+  // })
 
   public registregBorrat = () =>
   Swal.fire({

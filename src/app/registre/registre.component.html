@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="filers d-flex justify-content-end mb-4 mt-4">
+    <div class= "d-flex justify-content-end mb-4 mt-4">
       <mat-form-field class="item">
         <mat-label>Entrar un rang de dates</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="dateRangePicker">
@@ -26,7 +26,7 @@
       </mat-form-field>
       <button class="reset item" mat-stroked-button (click)="resetFiltres()">Reset Filtres</button>
   </div> 
-  <div class="card">
+  <div class="card mat-elevation-z6">
     <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
       <h1 >Registre</h1>
       <button (click)="Nou()" mat-fab color="warn" aria-label="Example icon button with a home icon">
@@ -34,13 +34,13 @@
       </button>
     </div>
     <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
-      <table mat-table [dataSource]="registres" class="mat-elevation-z8">
+      <table mat-table [dataSource]="registres">
           
         <!-- ID Columna 
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>ID</th>
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>-->
+        </ng-container> -->
         
         <ng-container matColumnDef="data">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>DATA</th>
@@ -52,25 +52,30 @@
             <td mat-cell *matCellDef="let element"> {{element.importreg}} € </td>
         </ng-container>
 
-
         <ng-container matColumnDef="subcategoria">
             <th mat-header-cell *matHeaderCellDef>SUBCATEGORIA</th>
             <td mat-cell *matCellDef="let element"> {{element.subcategoria.id}}_{{element.subcategoria.nom}}  </td>
         </ng-container>
     
-      <ng-container matColumnDef="accions">
-        <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
-          <mat-icon>edit</mat-icon></button>
-          <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
-            <mat-icon>delete</mat-icon></button>
-      </td>
-      </ng-container>
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <ng-container matColumnDef="accions">
+          <th mat-header-cell *matHeaderCellDef>ACCIONS</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="Editar(element)" color="primary" aria-label="Example icon button with a home icon">
+            <mat-icon>edit</mat-icon></button>
+            <button mat-icon-button (click)="Delete(element)" color="primary" aria-label="Example icon button with a home icon">
+              <mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator 
+      [length]="totalItems"
+      [pageSize]="itemsPerPage"
+      [pageSizeOptions]="[10, 20, 50]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements">
+    </mat-paginator>
   </div>
   <br><br>
 </div> 

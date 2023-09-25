@@ -31,7 +31,7 @@ export class CateditComponent implements OnInit {
   Guardar(){
     this.service.createCategoria(this.categoriaForm.value)
     .subscribe(data=>{
-        this.dialog.registregGuardat();
+        this.dialog.info('La categoria s\'ha guardat correctament','success');
         this.router.navigate(["listCat"]);
     })
   }
@@ -67,7 +67,7 @@ export class CateditComponent implements OnInit {
   Actualizar(){
     this.service.updateCategoria(this.categoriaForm.value).subscribe(
     data=>{
-      this.dialog.simpleAlert("Registre actualitzat","El registre ha estat actualitzat","info");
+      this.dialog.simpleAlert("La categoria ha estat actualitzada","Categoria actualitzada","info");
       this.router.navigate(["listCat"]);
     })
     this.service.isEdit = false;

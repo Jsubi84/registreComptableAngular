@@ -9,6 +9,8 @@ import { RegistreService } from 'src/app/service/registre.service';
 import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import * as moment from 'moment';
+import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2';
 
 export const DATE_PICKER_FORMAT = {
   parse: {
@@ -48,17 +50,47 @@ export class RegeditComponent implements OnInit {
         id: new FormControl(),
         subcategoria : new FormControl('', Validators.required),
         importreg: new FormControl('', Validators.required),
-        data: new FormControl(new Date(), Validators.required),
+        data: new FormControl(moment(), Validators.required),
         descripcio: new FormControl(''),
       });
   }
 
   Guardar(){
-    this.service.createRegistre(this.registreForm.value)
-    .subscribe(data=>{
-        this.dialog.registregGuardat();
-        this.router.navigate(["registres"]);
-    })
+
+    let dataRegistre: string 
+    let reg = this.registreForm.get('importreg')?.value;
+    let datareg = this.registreForm.get('data')?.value;
+    let subcat = this.registreForm.get('subcategoria')?.value;
+
+    //Comprovar que no és un registre repetit
+    this.service.getRegistreRepeate(reg, datareg.format('YYYY-MM-DD'), subcat).subscribe(data=>{
+      if (data == 0){
+        this.service.createRegistre(this.registreForm.value)
+        .subscribe(data=>{
+          this.dialog.info('El registre s\'ha guardat correctament','success');
+          this.router.navigate(["registres"]);
+        })
+      }else{
+        Swal.fire({
+          title: "Registre repetit",
+          text: "El registre que has introduit pot estar repetit. Vol guardar igualment?",
+          showDenyButton: true,
+          confirmButtonText: 'Guardar',
+          denyButtonText: `Cancelar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.service.createRegistre(this.registreForm.value)
+            .subscribe(data=>{
+              this.dialog.info('El registre s\'ha guardat correctament','success');
+              this.router.navigate(["registres"]);
+            })
+          } else if (result.isDenied) {
+            this.dialog.info( 'El registre ha estat descartat','info');
+            this.router.navigate(["registres"]);
+          }
+        })
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -98,10 +130,10 @@ export class RegeditComponent implements OnInit {
     );
   }
 
-  Actualizar(){
+  Actualitzar(){
     this.service.updateRegistre(this.registreForm.value).subscribe(
     data=>{
-      this.dialog.simpleAlert("Registre actualitzat","El registre ha estat actualitzat","info");
+      this.dialog.simpleAlert('El registre ha estat actualitzat', 'Registre actualitzat','info');
       this.router.navigate(["registres"]);
     })
     this.service.isEdit = false;

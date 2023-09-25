@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Registre } from '../modelo/registre'
+import { Subcategoria } from '../modelo/subcategoria'
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -47,5 +48,21 @@ export class RegistreService {
 
   ckRegistresToDeleteSubcategoria(id:number){
     return this.http.get(this.Url+"/ckDeleteSubcat?id="+id);
+  }
+
+  getRegistreRepeate(importReg:number, data:string, subcat:Subcategoria){
+    let params = new HttpParams();
+    params = params.set('importReg', importReg);
+    params = params.set('data', data);
+    params = params.set('subcatId', subcat.id);
+    return this.http.get(this.Url+"/getRegistreRepeate", { params: params});
+  }
+
+  findallPaged(page:number, size:number, sort:string){
+    let params = new HttpParams();
+    params = params.set('page', page);
+    params = params.set('size', size);
+    params = params.set('sort', sort);
+    return this.http.get(this.Url+"/paged", { params: params});
   }
 }

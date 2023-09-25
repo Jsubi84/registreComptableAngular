@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { RegeditModule } from './regedit/regedit.module';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule} from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker'
@@ -43,7 +43,7 @@ import { JsonPipe }  from '@angular/common';
     MatIconModule,
     MatButtonToggleModule,
     MatSortModule,
-    JsonPipe 
+    JsonPipe,
   ],
   exports: [],
   providers: [RegistreService, Dialogs],
