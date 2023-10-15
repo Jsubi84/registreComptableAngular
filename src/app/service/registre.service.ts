@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Registre } from '../modelo/registre'
 import { Subcategoria } from '../modelo/subcategoria'
+import { RegistreFilter } from '../modelo/registreFilter'
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -27,6 +28,7 @@ export class RegistreService {
   }
 
   createRegistre(registre:Registre){
+    console.log(registre);
     return this.http.post<Registre>(this.Url, registre);
   }
 
@@ -58,11 +60,15 @@ export class RegistreService {
     return this.http.get(this.Url+"/getRegistreRepeate", { params: params});
   }
 
-  findallPaged(page:number, size:number, sort:string){
+  findAllPaged(page:number, size:number, sort:string){
     let params = new HttpParams();
     params = params.set('page', page);
     params = params.set('size', size);
     params = params.set('sort', sort);
     return this.http.get(this.Url+"/paged", { params: params});
+  }
+
+  findAllFilter(rfilter: RegistreFilter){
+    return this.http.post<RegistreFilter>(this.Url+"/getRegistreFilter", rfilter);
   }
 }

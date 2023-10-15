@@ -13,6 +13,7 @@ import { DateAdapter, MAT_DATE_FORMATS,MAT_DATE_LOCALE } from '@angular/material
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { RegistreFilter } from '../modelo/registreFilter';
 
 export const DATE_PICKER_FORMAT = {
   parse: {
@@ -48,62 +49,57 @@ export class RegistreComponent implements OnInit{
 
   pageableData: any; 
   configuracio!: Observable<any>;
-  dataRange: any;
-  subcategoria: any;
   options!:Subcategoria[];
   optionsBuit!:Subcategoria[];
   filteredOptions!: Observable<Subcategoria[]>;
   myControl = new FormControl<string | Subcategoria>('');
   registres!:Registre[];
   registresMemory!:Registre[];
-  progress!: Boolean;
   progres: Boolean = false;
-  filterDateRange : Boolean = false; 
-  filterSubcat : Boolean = false; 
   regPaginator:any;
   totalItems = 0; 
-  itemsPerPage = 10;
-  
+  itemsPerPage:number = 10 ;
+  currentPageIndex:number = 0; 
+  filter: RegistreFilter; 
 
   displayedColumns: string[] = ['data', 'import', 'subcategoria','accions'];
 
   constructor( private configService: ConfigService, private serviceSub:SubcategoriaService, private service:RegistreService, private router:Router, private dialog:Dialogs){
     this.configuracio = configService.getConfig();
     this.progres = true;
+    this.filter = {
+      dInici :"",
+      dFi : "", 
+      subcatId :0,
+      page: 0,
+      size:10 
+    }
   }
 
   ngAfterViewInit() {
     this.paginator.page.subscribe((event) => {
-      const currentPageIndex = event.pageIndex; 
-      const itemsPerPage = event.pageSize; 
-      // Carregar dades al canviar el paginador 
-      this.loadData(currentPageIndex, itemsPerPage);
+      this.filter.page = event.pageIndex; 
+      this.filter.size = event.pageSize; 
+      this.loadData(this.filter);
     });
   }
 
-  loadData(currentPage: number, perPage: number) {
-    this.service.findallPaged(currentPage, perPage, 'data,desc').subscribe
+  loadData(filter: RegistreFilter) {
+    this.progres = true;
+    this.service.findAllFilter(this.filter).subscribe
     (data=>{
       this.pageableData = data;
+      this.totalItems= this.pageableData.totalElements;
       this.registres = this.pageableData.content;
-      this.registresMemory = this.pageableData.content;
-      this.progres = false;       
-    })  
+      this.progres = false;
+    })
   }
 
   ngOnInit(): void {
     this.configuracio.subscribe(()=>{
-      //this.service.findAllWithSort().subscribe
-      this.service.findallPaged(0, 10, 'data,desc').subscribe
-        (data=>{
-          this.pageableData = data;
-          this.totalItems= this.pageableData.totalElements;
-          this.registres = this.pageableData.content;
-          this.registresMemory = this.pageableData.content;
-          this.progres = false;
-          this.regPaginator = new MatTableDataSource<Registre>(this.registres);
-          this.regPaginator.paginator = this.paginator;        
-      })   
+      this.loadData(this.filter);
+      this.regPaginator = new MatTableDataSource<Registre>(this.registres);
+      this.regPaginator.paginator = this.paginator; 
       this.serviceSub.getSubcategorias().subscribe
       (data=>{
         this.options = data;
@@ -165,43 +161,33 @@ export class RegistreComponent implements OnInit{
   }
 
   resetFiltres(){
-    this.registres = this.registresMemory;
     this.myControl.reset();
     this.range.reset();
-    this.filterDateRange = false;
-    this.filterSubcat = false;
+
+    this.filter = {
+      dInici :"",
+      dFi : "", 
+      subcatId :0,
+      page: 0,
+      size:10  
+    }
+    this.loadData(this.filter);
+    this.paginator.firstPage();
   }
 
   public onChangeSubcategory(sub : Subcategoria){
-    let result;
-    this.subcategoria = sub
-    if (!this.filterDateRange){
-      result = this.registresMemory.filter(option => option.subcategoria.id == sub.id);    
-    }else if (this.filterDateRange && this.filterSubcat){
-      this.registres = this.registresMemory.filter(option => option.subcategoria.id == sub.id); 
-      result = this.registres.filter(option => new Date(option.data).valueOf() >=  this.dataRange.start._d.valueOf() && new Date(option.data).valueOf() <= this.dataRange.end._d.valueOf());
-    }else{
-      result = this.registres.filter(option => option.subcategoria.id == sub.id);    
-    }
-    this.registres = result;
-    this.filterSubcat = true;
+    this.filter.subcatId = sub.id;
+    this.loadData(this.filter);
+    this.paginator.firstPage();
   }
 
   dateRangeChange(range: any){
-    let result;
-    this.dataRange = range
     if (range.end != null) {
-      if (!this.filterSubcat){     
-        result = this.registresMemory.filter(option => new Date(option.data).valueOf() >=  range.start._d.valueOf() && new Date(option.data).valueOf() <= range.end._d.valueOf());
-      }else if (this.filterDateRange && this.filterSubcat){
-        this.registres =  this.registresMemory.filter(option => new Date(option.data).valueOf() >=  this.dataRange.start._d.valueOf() && new Date(option.data).valueOf() <= this.dataRange.end._d.valueOf());
-        result = this.registres.filter(option => option.subcategoria.id == this.subcategoria.id);
-      }else{
-        result = this.registres.filter(option => new Date(option.data).valueOf() >=  range.start._d.valueOf() && new Date(option.data).valueOf() <= range.end._d.valueOf());
-      } 
-      this.registres = result;
-      this.filterDateRange = true;
+      this.filter.dInici = range.start._i.year + "-" + (range.start._i.month+1) + "-" + range.start._i.date;
+      this.filter.dFi = range.end._i.year + "-" + (range.end._i.month+1) + "-" + range.end._i.date;
     }
+    this.loadData(this.filter);
+    this.paginator.firstPage();
   }
 }
 
