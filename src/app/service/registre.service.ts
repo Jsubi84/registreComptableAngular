@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Registre } from '../modelo/registre'
 import { Subcategoria } from '../modelo/subcategoria'
 import { RegistreFilter } from '../modelo/registreFilter'
-import { ConfigService } from './config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,8 @@ export class RegistreService {
   public isEdit:Boolean = false;
   public Url: string = "";
 
-  constructor(private http:HttpClient, private configService: ConfigService) {
-    this.configService.getConfig().subscribe(config => {
-      this.Url= config.apiUrl + "registres";
-    }); 
+  constructor(private http:HttpClient) {
+      this.Url= environment.apiUrl + "registres";
   }
   
   getRegistre(){

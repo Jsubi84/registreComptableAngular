@@ -5,8 +5,6 @@ import { SubcategoriaService } from '../service/subcategoria.service';
 import { Router } from '@angular/router'
 import { Dialogs } from 'src/app/dialogs/dialogs'
 import Swal from 'sweetalert2';
-import { ConfigService } from '../service/config.service';
-import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,27 +15,23 @@ import { Observable } from 'rxjs';
 
 export class CategoriaComponent implements OnInit {
 
-  configuracio!: Observable<any>;
   categories!:Categoria[];
   progres: Boolean = false;
 
   displayedColumns: string[] = [ 'nom', 'descripcio','tipus', 'accions'];
   dataSource = this.categories;
 
-  constructor(private configService: ConfigService, private service:CategoriaService, private subCat_service: SubcategoriaService, private router:Router, private dialog:Dialogs){
-    this.configuracio = configService.getConfig();
+  constructor( private service:CategoriaService, private subCat_service: SubcategoriaService, private router:Router, private dialog:Dialogs){
     this.progres = true;
   }
 
   ngOnInit(): void {
-    this.configuracio.subscribe(()=>{
-      this.service.getCategorias().subscribe
-      (data=>{
-        this.categories = data;
-        this.categories.sort((x,y)=> x.id- y.id);
-        this.progres = false;
-      }) 
-    });
+    this.service.getCategorias().subscribe
+    (data=>{
+      this.categories = data;
+      this.categories.sort((x,y)=> x.id- y.id);
+      this.progres = false;
+    }) 
   }
 
   Nou(){

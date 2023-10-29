@@ -5,9 +5,9 @@ import { Router } from '@angular/router'
 import { Dialogs } from 'src/app/dialogs/dialogs'
 import Swal from 'sweetalert2';
 import { RegistreService } from '../service/registre.service';
-import { ConfigService } from '../service/config.service';
+import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Categoria } from 'src/app/modelo/categoria';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { map, startWith } from 'rxjs/operators';
@@ -19,11 +19,10 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class SubcategoriaComponent implements OnInit {
 
-  myControl = new FormControl<string | Categoria>('');
   options!:Categoria[];
+  optionsBuit!:Categoria[];
   filteredOptions!: Observable<Categoria[]>;
-
-  configuracio!: Observable<any>;
+  myControl = new FormControl<string | Categoria>('');
   subcategories!:Subcategoria[];
   subcategoriesMemory!:Subcategoria[];
   progress!: Boolean;
@@ -32,34 +31,29 @@ export class SubcategoriaComponent implements OnInit {
   displayedColumns: string[] = ['nom', 'descripcio', 'categoria','accions'];
   dataSource = this.subcategories;
 
-  constructor(private serviceCat:CategoriaService, private configService: ConfigService, private registre_service: RegistreService, private service:SubcategoriaService, private router:Router, private dialog:Dialogs){
-    this.configuracio = configService.getConfig();
+  constructor(private serviceCat:CategoriaService, private registre_service: RegistreService, private service:SubcategoriaService, private router:Router, private dialog:Dialogs){
     this.progres = true;
   }
 
   ngOnInit(): void {
-    this.configuracio.subscribe(()=>{
       this.service.getSubcategorias().subscribe
-        (data=>{
-          this.subcategories = data;
-          this.subcategoriesMemory = data;
-          this.subcategories.sort((x,y)=> x.id- y.id);
-          this.progres = false;
-
-          this.serviceCat.getCategorias().subscribe
-          (data=>{
-            this.options = data;
-          })    
-          this.filteredOptions = this.myControl.valueChanges.pipe(
-            startWith(''),
-            map(value => {
-              const nom = typeof value === 'string' ? value : value?.nom;
-              return nom ? this._filter(nom as string) : this.options;
-             }),
-          );
-
-      })  
-    }); 
+      (data=>{
+        this.subcategories = data;
+        this.subcategoriesMemory = data;
+        this.subcategories.sort((x,y)=> x.id- y.id);
+        this.progres = false;
+      })
+      this.serviceCat.getCategorias().subscribe
+      (data=>{
+        this.options = data;
+      })    
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          const nom = typeof value === 'string' ? value : value?.nom;
+          return nom ? this._filter(nom as string) : this.optionsBuit;
+      }),
+      );
   }
 
   Nou(){
@@ -113,8 +107,8 @@ export class SubcategoriaComponent implements OnInit {
   }
 
   resetFiltres(){
-    this.subcategories = this.subcategoriesMemory;
     this.myControl.reset();
+    this.subcategories = this.subcategoriesMemory;
   }
 
   public onChangeCategory(cat : Categoria){

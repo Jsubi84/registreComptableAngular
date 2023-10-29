@@ -1,7 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { LoadingService } from './service/loading.service';
-import { ConfigService } from './service/config.service';
 import { Observable } from 'rxjs';
 
 
@@ -15,21 +14,18 @@ export class AppComponent implements OnInit{
   title = 'Registre Comptable';
   configuracio!: Observable<any>;
 
-  constructor(private router: Router, public loadingService: LoadingService, private configService: ConfigService) {
-    this.configuracio = configService.getConfig();
+  constructor(private router: Router, public loadingService: LoadingService) {
   }
 
   ngOnInit() {
-    this.configuracio.subscribe(()=>{
-      this.router.events.subscribe(event => {
-        if (event instanceof NavigationStart) {
-          // Si es la carga inicial de la aplicación, mostramos el spinner
-          if (this.loadingService.isFirstLoad) {
-            this.loadingService.setLoading(true);
-            this.loadingService.setIsFirstLoad(false);
-          }
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        // Si es la carga inicial de la aplicación, mostramos el spinner
+        if (this.loadingService.isFirstLoad) {
+          this.loadingService.setLoading(true);
+          this.loadingService.setIsFirstLoad(false);
         }
-      });
+      }
     });
   }
 

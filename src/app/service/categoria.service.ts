@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Categoria } from '../modelo/categoria'
-import { ConfigService } from './config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,8 @@ export class CategoriaService {
   public isEdit:Boolean = false;
   public Url: string = "";
 
-  constructor(private http:HttpClient, private configService: ConfigService) {
-    this.configService.getConfig().subscribe(config => {
-    this.Url= config.apiUrl + "categories";
-    });    
+  constructor(private http:HttpClient) {
+    this.Url= environment.apiUrl + "categories";  
   }
 
   getCategorias(){

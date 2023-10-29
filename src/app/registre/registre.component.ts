@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { Registre } from '../modelo/registre';
 import { FormControl, FormGroup} from '@angular/forms';
 import { Subcategoria } from '../modelo/subcategoria';
-import { ConfigService } from '../service/config.service';
 import { SubcategoriaService } from '../service/subcategoria.service';
 import { Observable, map, startWith } from 'rxjs';
 import { DateAdapter, MAT_DATE_FORMATS,MAT_DATE_LOCALE } from '@angular/material/core'
@@ -48,7 +47,6 @@ export class RegistreComponent implements OnInit{
   });
 
   pageableData: any; 
-  configuracio!: Observable<any>;
   options!:Subcategoria[];
   optionsBuit!:Subcategoria[];
   filteredOptions!: Observable<Subcategoria[]>;
@@ -64,8 +62,7 @@ export class RegistreComponent implements OnInit{
 
   displayedColumns: string[] = ['data', 'import', 'subcategoria','accions'];
 
-  constructor( private configService: ConfigService, private serviceSub:SubcategoriaService, private service:RegistreService, private router:Router, private dialog:Dialogs){
-    this.configuracio = configService.getConfig();
+  constructor( private serviceSub:SubcategoriaService, private service:RegistreService, private router:Router, private dialog:Dialogs){
     this.progres = true;
     this.filter = {
       dInici :"",
@@ -96,22 +93,20 @@ export class RegistreComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.configuracio.subscribe(()=>{
-      this.loadData(this.filter);
-      this.regPaginator = new MatTableDataSource<Registre>(this.registres);
-      this.regPaginator.paginator = this.paginator; 
-      this.serviceSub.getSubcategorias().subscribe
-      (data=>{
-        this.options = data;
-      })  
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => {
-          const nom = typeof value === 'string' ? value : value?.nom;
-          return nom ? this._filter(nom as string) : this.optionsBuit;//this.options;
-         }),
-       );
-     });
+    this.loadData(this.filter);
+    this.regPaginator = new MatTableDataSource<Registre>(this.registres);
+    this.regPaginator.paginator = this.paginator; 
+    this.serviceSub.getSubcategorias().subscribe
+    (data=>{
+      this.options = data;
+    })  
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const nom = typeof value === 'string' ? value : value?.nom;
+        return nom ? this._filter(nom as string) : this.optionsBuit;//this.options;
+      }),
+    );
   }
 
   Nou(){

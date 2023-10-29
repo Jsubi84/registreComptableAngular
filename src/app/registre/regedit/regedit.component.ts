@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
-import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export const DATE_PICKER_FORMAT = {
   parse: {

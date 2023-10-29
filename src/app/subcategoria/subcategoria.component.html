@@ -1,12 +1,12 @@
 <div class="container">
   <div class="d-flex justify-content-end mb-4 mt-4">
-    <mat-form-field class="matInput">
+    <mat-form-field class="item">
       <mat-label>Categoria</mat-label>
       <input  type="text"
               placeholder="Categoria a filtrar"
               name="Categoria" 
-              [formControl]="myControl"
               matInput
+              [formControl]="myControl"
               [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let option of filteredOptions | async" (onSelectionChange)="onChangeCategory(option)" [value]="option" >

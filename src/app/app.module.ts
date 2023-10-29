@@ -29,7 +29,6 @@ import { SubcategoriaModule } from './subcategoria/subcategoria.module';
 import { RegistreModule } from './registre/registre.module';
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatSelectModule } from '@angular/material/select'
-import { ConfigService } from './service/config.service';
 import { LoaderComponent } from './loader/loader.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -73,7 +72,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule
   ],
   exports: [MatDatepickerModule],
-  providers: [ConfigService, CategoriaService, Dialogs],
+  providers: [CategoriaService, Dialogs],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

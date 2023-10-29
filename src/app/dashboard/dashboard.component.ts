@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistreService } from '../service/registre.service';
 import { ResumAny } from 'src/app/modelo/resumAny';
-import { ConfigService } from '../service/config.service';
 import { Observable } from 'rxjs';
 
 const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
@@ -24,9 +23,7 @@ export class DashboardComponent implements OnInit {
 
   visibleResum:Boolean = false;
 
-  constructor(private configService: ConfigService, private service:RegistreService){
-    this.configuracio = configService.getConfig();
-
+  constructor(private service:RegistreService){
     const anyPresent = new Date();
 
     this.anys.push(anyPresent.getFullYear());
@@ -37,9 +34,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configuracio.subscribe(()=>{ 
-      this.actualitzaDades();
-    });
+    this.actualitzaDades();
   }
 
   actualitzaDades(){
