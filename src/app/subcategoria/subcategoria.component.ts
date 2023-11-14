@@ -108,6 +108,7 @@ export class SubcategoriaComponent implements OnInit {
 
   resetFiltres(){
     this.myControl.reset();
+    this.myControl.setValue("");
     this.subcategories = this.subcategoriesMemory;
   }
 

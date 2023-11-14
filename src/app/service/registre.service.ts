@@ -42,10 +42,6 @@ export class RegistreService {
     return this.http.delete<Registre>(this.Url+"/"+r.id);
   }
 
-  getResumAny(year:number){
-    return this.http.get(this.Url+"/getResumAny?year="+year);
-  }
-
   ckRegistresToDeleteSubcategoria(id:number){
     return this.http.get(this.Url+"/ckDeleteSubcat?id="+id);
   }

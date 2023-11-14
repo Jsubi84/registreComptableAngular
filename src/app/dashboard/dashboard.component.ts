@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistreService } from '../service/registre.service';
+import { DashboardService } from '../service/dashboard.service';
 import { ResumAny } from 'src/app/modelo/resumAny';
-import { Observable } from 'rxjs';
 
 const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
 
@@ -14,7 +13,6 @@ export class DashboardComponent implements OnInit {
 
   displayedColumns: string[] = ['mes', 'ingres', 'despesa'];
 
-  configuracio!: Observable<any>;
   selected = 0;
   anys: number [] = [];
   public totalDespesa: number = 0;
@@ -23,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   visibleResum:Boolean = false;
 
-  constructor(private service:RegistreService){
+  constructor(private service:DashboardService){
     const anyPresent = new Date();
 
     this.anys.push(anyPresent.getFullYear());
