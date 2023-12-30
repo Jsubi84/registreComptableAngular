@@ -30,9 +30,25 @@ export class DashboardService {
 
   getTotalSubcatByYear(year:number, idSubcat:number){
     this.params = new HttpParams();
-    this.params = this.params.set('diSubcat', idSubcat);
+    this.params = this.params.set('idSubcat', idSubcat);
     this.params = this.params.set('year', year);
     return this.http.get(this.Url+"/getTotalSubcatByYear", { params: this.params});
+  }
+
+  getCatByYearMonth(year:number, idCat:number, month:number){
+    this.params = new HttpParams();
+    this.params = this.params.set('idCat', idCat);
+    this.params = this.params.set('year', year);
+    this.params = this.params.set('month', month);
+    return this.http.get(this.Url+"/getCatByYearMonth", { params: this.params});
+  }
+
+  getSubcatByYearMonth(year:number, idSubcat:number, month:number){
+    this.params = new HttpParams();
+    this.params = this.params.set('idSubcat', idSubcat);
+    this.params = this.params.set('year', year);
+    this.params = this.params.set('month', month);
+    return this.http.get(this.Url+"/getSubcatByYearMonth", { params: this.params});
   }
 
 }

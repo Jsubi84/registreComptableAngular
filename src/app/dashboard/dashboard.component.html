@@ -1,53 +1,104 @@
-<div class="container" >
-    <div class="col-md-5">
-        <div class="card">
-            <div class="card-header" style="display:flex; flex-direction: column;">
-                <div class = "opcio">
-                    <div class="buttons">
-                        <button class="button" mat-icon-button *ngIf="this.visibleResum" matTooltip="Mostra" (click)="this.visibleResum = false"><mat-icon>visibility</mat-icon></button>
-                        <button class="button" mat-icon-button *ngIf="!this.visibleResum" matTooltip="Amaga" (click)="this.visibleResum = true"><mat-icon>visibility_off</mat-icon></button>
+<div class="body-content" >
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <mat-card >
+                <mat-card-header class="d-flex flex-column pt-2">
+                    <div class = "d-flex justify-content-between">
+                        <div class="titol">
+                            <mat-card-title><h2>RESUM ANY</h2></mat-card-title> 
+                        </div>    
+                        <div class="titol">
+                            <mat-card-title><h2>Total despesa = {{totalDespesa.toFixed(2) }} €</h2></mat-card-title> 
+                        </div>    
+                        <div class="titol">
+                            <mat-card-title><h2>Total ingres = {{totalIngres.toFixed(2) }} €</h2></mat-card-title> 
+                        </div>        
+                        <div class = "seleccio">
+                            <mat-form-field  *ngIf="this.visibleResum">
+                                <mat-label>Any</mat-label>
+                                <mat-select [(value)]="selected" (selectionChange)="actualitzaResumAny()">
+                                    <mat-option *ngFor="let any of anys" [value]="any">
+                                        {{any}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
-                    <div *ngIf="!this.visibleResum" class="titol">
-                        <h1 >RESUM PER ANYS</h1>  
-                    </div>                      
-                    <div class = "seleccio">
-                        <mat-form-field  *ngIf="this.visibleResum" class="select">
+                </mat-card-header>
+                <mat-card-content>
+                    <div style="height:30vw; width:100%; display:flex; justify-content: center;" >
+                       <canvas id="yearTotals"></canvas>  
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-card>
+                <mat-card-header style="display:flex; flex-direction: column;">
+                    <mat-card-title class="mb-3">Categories</mat-card-title>
+                    <button class="reset item" mat-stroked-button (click)="resetFiltresCat()">Reset Filtres</button>
+                    <div class="row">
+                        <mat-form-field >
                             <mat-label>Any</mat-label>
-                            <mat-select [(value)]="selected" (selectionChange)="actualitzaDades()">
+                            <mat-select [(value)]="selected" (selectionChange)="actualitzaCategories()">
                                 <mat-option *ngFor="let any of anys" [value]="any">
                                     {{any}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <mat-form-field class="item">
+                            <mat-label>Categoria</mat-label>
+                            <input  type="text"
+                                    placeholder="Categoria a filtrar"
+                                    name="Categoria" 
+                                    matInput
+                                    [formControl]="myControlCat"
+                                    [matAutocomplete]="autoCat">
+                            <mat-autocomplete #autoCat="matAutocomplete" [displayWith]="displayFnCat">
+                              <mat-option *ngFor="let option of filteredOptionsCat | async" (onSelectionChange)="onChangeCategory(option)" [value]="option" >
+                                {{option.id}}_{{option.nom}}
+                              </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
                     </div>
-                </div>
-            </div>
-            <div *ngIf="this.visibleResum"  class="totalMesos">
-                <table mat-table [dataSource]="totalAny" class="mat-elevation-z5">
-                    
-                    <!-- Mes Column -->
-                    <ng-container matColumnDef="mes">
-                        <th mat-header-cell *matHeaderCellDef> Mes</th>
-                        <td mat-cell *matCellDef="let element"> {{element.mes}} </td>
-                    </ng-container>
-                    
-                    <!-- Ingres Column -->
-                    <ng-container matColumnDef="ingres">
-                        <th mat-header-cell *matHeaderCellDef> Ingres </th>
-                        <td mat-cell *matCellDef="let element"> {{+element.ingres.toFixed(2)}} € </td >
-                    </ng-container>
-
-                    <!-- Despesa Column -->
-                    <ng-container matColumnDef="despesa">
-                        <th mat-header-cell *matHeaderCellDef> Despesa </th>
-                        <td mat-cell *matCellDef="let element"> {{+element.despesa.toFixed(2)}} € </td>
-                    </ng-container>
-                    
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
-            
-                </table>
-            </div>
+                </mat-card-header>
+                <mat-card-content >
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-card>
+                <mat-card-header style="display:flex; flex-direction: column;">
+                    <mat-card-title class="mb-3">Subcategories</mat-card-title>
+                    <button class="reset item" mat-stroked-button (click)="resetFiltresSub()">Reset Filtres</button>
+                    <div class="row">
+                        <mat-form-field >
+                            <mat-label>Any</mat-label>
+                            <mat-select [(value)]="selected" (selectionChange)="actualitzaSubcategories()">
+                                <mat-option *ngFor="let any of anys" [value]="any">
+                                    {{any}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="item">
+                            <mat-label>Subcategoria</mat-label>
+                            <input  type="text"
+                                    placeholder="Subcategoria a filtrar"
+                                    name="Subcategoria" 
+                                    matInput
+                                    [formControl]="myControlSub"
+                                    [matAutocomplete]="autoSub">
+                            <mat-autocomplete #autoSub="matAutocomplete" [displayWith]="displayFnSub">
+                              <mat-option *ngFor="let options of filteredOptionsSub | async" (onSelectionChange)="onChangeSubcategory(options)" [value]="options" >
+                                {{options.id}}_{{options.nom}}
+                              </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </mat-card-header>
+                <mat-card-content >
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

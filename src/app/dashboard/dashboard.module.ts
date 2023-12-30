@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select'
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { MatSelectModule } from '@angular/material/select'
     MatIconModule,
     MatProgressBarModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule
+
   ]
 })
 export class DashboardModule { }

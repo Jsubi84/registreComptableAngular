@@ -23,24 +23,6 @@ public simpleAlert = (missatge : string, titol : string, tipus : SweetAlertIcon)
     timer: 1500
   })
 
-  // public registregGuardat = () =>
-  // Swal.fire({
-  //   position: 'center',
-  //   icon: 'success',
-  //   title: 'El registre s\'ha guardat correctament',
-  //   showConfirmButton: false,
-  //   timer: 1500
-  // })
-
-  // public registregNoGuardat = () =>
-  // Swal.fire({
-  //   position: 'center',
-  //   icon: 'info',
-  //   title: 'El registre ha estat descartat',
-  //   showConfirmButton: false,
-  //   timer: 1500
-  // })
-
   public registregBorrat = () =>
   Swal.fire({
     position: 'center',

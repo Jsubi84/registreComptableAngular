@@ -32,6 +32,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { LoaderComponent } from './loader/loader.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     RegeditModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule,
   ],
   exports: [MatDatepickerModule],
   providers: [CategoriaService, Dialogs],

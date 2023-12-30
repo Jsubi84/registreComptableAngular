@@ -1,15 +1,14 @@
 import { Component,  OnInit} from '@angular/core';
 import { Subcategoria } from 'src/app/modelo/subcategoria';
 import { SubcategoriaService } from '../service/subcategoria.service';
+import { RegistreService } from '../service/registre.service';
+import { CategoriaService } from 'src/app/service/categoria.service';
 import { Router } from '@angular/router'
 import { Dialogs } from 'src/app/dialogs/dialogs'
 import Swal from 'sweetalert2';
-import { RegistreService } from '../service/registre.service';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Categoria } from 'src/app/modelo/categoria';
-import { CategoriaService } from 'src/app/service/categoria.service';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
@@ -53,7 +52,7 @@ export class SubcategoriaComponent implements OnInit {
           const nom = typeof value === 'string' ? value : value?.nom;
           return nom ? this._filter(nom as string) : this.optionsBuit;
       }),
-      );
+    );
   }
 
   Nou(){
