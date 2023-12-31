@@ -98,11 +98,14 @@ export class SubcategoriaComponent implements OnInit {
   }
 
   displayFn(cat: Categoria): string {
-    if (cat.id == 0) {
-      return "";
-    }else{
-      return cat && cat.id+'_'+cat.nom ? cat.id+'_'+cat.nom : '';
+    if (cat != null){
+      if (cat.id == 0) {
+        return "";
+      }else{
+        return cat && cat.id+'_'+cat.nom ? cat.id+'_'+cat.nom : '';
+      }
     }
+    return "";
   }
 
   resetFiltres(){

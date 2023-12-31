@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../service/dashboard.service';
-import { ResumAny } from 'src/app/modelo/resumAny';
 import { Subcategoria } from 'src/app/modelo/subcategoria';
+import { Registre } from 'src/app/modelo/registre';
 import { Categoria } from 'src/app/modelo/categoria';
 import { SubcategoriaService } from '../service/subcategoria.service';
 import { RegistreService } from '../service/registre.service';
@@ -25,11 +25,24 @@ export class DashboardComponent implements OnInit {
 
   chart : any = null
 
-  selected = 0;
+  //Seleccions parcials
+  selected : number = -1;  // any seleccionat
+
+  selectedMesSub : number = -1;
+  selectedSubcategoriaId: number = -1;
+  totalSub: number = 0;
+  regSubParcials:Registre[] | any = []; 
+
+  selectedMesCat : number = -1;
+  selectedCategoriaId : number = -1;
+  totalCat : number = 0;
+  regCatParcials:Registre[] | any = [];
+
+
   anys: number [] = [];
   public totalDespesa: number = 0;
   public totalIngres: number = 0;
-  //totalAny: ResumAny[] = [];
+  mesosAny : string[] = mesosAny;
 
   dataDespesa: number[] = [];
   dataIngres: number[] = [];
@@ -40,15 +53,16 @@ export class DashboardComponent implements OnInit {
   optionsCat!:Categoria[];
   optionsBuitCat!:Categoria[];
   filteredOptionsCat!: Observable<Categoria[]>;
-
+ 
   subcategories!:Subcategoria[];
   subcategoriesMemory!:Subcategoria[];
   myControlSub = new FormControl<string | Subcategoria>('');
   optionsSub!:Subcategoria[];
   optionsBuitSub!:Subcategoria[];
   filteredOptionsSub!: Observable<Subcategoria[]>;
+  
+  displayedColumns: string[] = ['data', 'import'];
 
-  visibleResum:Boolean = true;
   constructor(private service:DashboardService, private serviceCat:CategoriaService, private serviceReg: RegistreService, private serviceSub:SubcategoriaService ){}
 
   ngOnInit(): void {
@@ -110,23 +124,12 @@ export class DashboardComponent implements OnInit {
         this.dataDespesa[dades[i][0]-1]= dades[i][2] == null ? 0 : dades[i][2];
         this.totalDespesa += Number(dades[i][2]);
       }
-      // for (let i = 0; i < dades.length ; i++) {
-      //   this.totalAny[dades[i][0]-1].ingres = dades[i][1] == null ? 0 : dades[i][1];
-      //   this.totalIngres+= Number(dades[i][1]);
-      //   this.totalAny[dades[i][0]-1].despesa= dades[i][2] == null ? 0 : dades[i][2];
-      //   this.totalDespesa += Number(dades[i][2]);
-      // }
-      // const row = {
-      // mes: 'TOTALS',
-      // ingres: +this.totalIngres.toFixed(2),
-      // despesa: +this.totalDespesa.toFixed(2),
-      // }
-      // this.totalAny.push(row);  
-      //this.totalAny = [...this.totalAny];   
 
       this.dataIngres = [...this.dataIngres ];
       this.dataDespesa = [...this.dataDespesa ];
       this.resumTotal();
+      this.resetFiltresSub()
+      this.resetFiltresCat()
     });
   }
 
@@ -135,66 +138,76 @@ export class DashboardComponent implements OnInit {
       this.chart.destroy();
     }
     this.chart = new Chart( 'yearTotals', {
-    type: 'bar',
-    data: {
-      labels: mesosAny,
-      datasets: [
-        {
-          label: 'Despesa',
-          data: this.dataDespesa,
-          borderWidth: 2,
-          borderRadius: 7,
-        },
-        {
-          label: 'Ingres',
-          data: this.dataIngres,
-          borderWidth: 2,
-          borderRadius: 7,
-        }       
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
+      type: 'bar',
+      data: {
+        labels: mesosAny,
+        datasets: [
+          {
+            label: 'Despesa',
+            data: this.dataDespesa,
+            borderWidth: 2,
+            borderRadius: 7,
+          },
+          {
+            label: 'Ingres',
+            data: this.dataIngres,
+            borderWidth: 2,
+            borderRadius: 7,
+          }       
+        ],
       },
-      layout: {
-        padding:{
-          top:10,
-          left:50,
-          right:50,
-          bottom:10
-        } 
-      }
-    },
-  });
-
-  //this.chart.resize(500, 1000);
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+        layout: {
+          padding:{
+            top:10,
+            left:30,
+            right:30,
+            bottom:10
+          } 
+        }
+      },
+    });
   }
 
 //--------------
   //SUBCATEGORIES
 //--------------
 
-  actualitzaSubcategories(){
-    this.service.getSubcatByYearMonth(2023, 18, 6).subscribe
+  public onChangeSubcategory(sub : Subcategoria){
+    this.selectedSubcategoriaId = sub.id;
+    this.service.getTotalSubcatByYear(this.selected, sub.id).subscribe
     (data=> {
-
+      this.totalSub = +data;
     });
+    if (this.selectedMesSub != -1){
+      this.selectMesSubChange()
+    }
   }
 
-  public onChangeSubcategory(sub : Subcategoria){
-    //TODO fer calculs quan hi ha una subcategoria seleccionada
+  selectMesSubChange(){
+    if (this.selectedSubcategoriaId != -1 ) {
+      this.service.getSubcatByYearMonth(this.selected, this.selectedSubcategoriaId, this.selectedMesSub+1).subscribe
+      (data=> {
+        this.regSubParcials = data;
+      });  
+    }
   }
 
   displayFnSub(sub: Subcategoria): string {
-    if (sub.id == 0) {
-      return "";
-    }else{
-      return sub && sub.id+'_'+sub.nom ? sub.id+'_'+sub.nom : '';
+    if(sub != null){
+      if (sub.id == 0) {
+        return "";
+      }else{
+        return sub && sub.id+'_'+sub.nom ? sub.id+'_'+sub.nom : '';
+      }     
     }
+    return "";
   }
 
   private _filterSub(nom: string): any[] {
@@ -205,30 +218,49 @@ export class DashboardComponent implements OnInit {
   resetFiltresSub(){
     this.myControlSub.reset();
     this.myControlSub.setValue("");
-    this.subcategories = this.subcategoriesMemory;
+    this.totalSub = 0;
+    this.selectedMesSub = -1;
+    this.selectedSubcategoriaId = -1;
+    this.regSubParcials = []
+  }
+
+  renderTaulaParcialsSub(){
+    return this.regSubParcials.length != 0 ? true: false;
   }
 
 //--------------
   //CATEGORIES
 //--------------
   
-  actualitzaCategories(){
-    this.service.getCatByYearMonth(2023, 9, 8).subscribe
+  public onChangeCategory(cat : Categoria){
+    this.selectedCategoriaId = cat.id;
+    this.service.getTotalCatByYear(this.selected, cat.id).subscribe
     (data=> {
-      
+      this.totalCat = +data;
     });
+    if (this.selectedMesCat != -1){
+      this.selectMesCatChange()
+    }
   }
 
-  public onChangeCategory(cat : Categoria){
-    //TODO fer calculs quan hi ha una subcategoria seleccionada
+  selectMesCatChange(){
+    if (this.selectedCategoriaId != -1 ) {
+      this.service.getCatByYearMonth(this.selected, this.selectedCategoriaId, this.selectedMesCat+1).subscribe
+      (data=> {
+        this.regCatParcials = data;
+      });     
+    }
   }
 
   displayFnCat(cat: Categoria): string {
-    if (cat.id == 0) {
-      return "";
-    }else{
-      return cat && cat.id+'_'+cat.nom ? cat.id+'_'+cat.nom : '';
+    if(cat != null){
+      if (cat == null) {
+        return "";
+      }else{
+        return cat && cat.id+'_'+cat.nom ? cat.id+'_'+cat.nom : '';
+      }
     }
+    return "";
   }
 
   private _filterCat(nom: string): any[] {
@@ -237,8 +269,17 @@ export class DashboardComponent implements OnInit {
   }
 
   resetFiltresCat(){
-    this.myControlCat.reset();
-    this.myControlCat.setValue("");
-    this.categories = this.categoriesMemory;
+    if (this.myControlCat != null){
+      this.myControlCat.reset();
+      this.myControlCat.setValue("");
+      this.totalCat = 0;
+      this.selectedMesCat = -1;
+      this.selectedCategoriaId = -1;
+      this.regCatParcials = []
+    }
+  }
+
+  renderTaulaParcialsCat(){
+    return this.regCatParcials.length != 0 ? true: false;
   }
 }
