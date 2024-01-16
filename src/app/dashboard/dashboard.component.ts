@@ -31,13 +31,14 @@ export class DashboardComponent implements OnInit {
   selectedMesSub : number = -1;
   selectedSubcategoriaId: number = -1;
   totalSub: number = 0;
-  regSubParcials:Registre[] | any = []; 
+  regSubParcials:Registre[]= []; 
+  tRegSubParcials: number = 0;
 
   selectedMesCat : number = -1;
   selectedCategoriaId : number = -1;
   totalCat : number = 0;
-  regCatParcials:Registre[] | any = [];
-
+  regCatParcials:Registre[] = [];
+  tRegCatParcials: number = 0;
 
   anys: number [] = [];
   public totalDespesa: number = 0;
@@ -191,10 +192,17 @@ export class DashboardComponent implements OnInit {
   }
 
   selectMesSubChange(){
+    this.tRegSubParcials = 0
     if (this.selectedSubcategoriaId != -1 ) {
       this.service.getSubcatByYearMonth(this.selected, this.selectedSubcategoriaId, this.selectedMesSub+1).subscribe
       (data=> {
-        this.regSubParcials = data;
+        let dades : Registre | any = data;
+        this.regSubParcials = dades;
+        if (this.regSubParcials.length != 0){
+          this.regSubParcials.forEach(reg =>  {
+            this.tRegSubParcials += reg.importreg
+          });          
+        }
       });  
     }
   }
@@ -244,17 +252,24 @@ export class DashboardComponent implements OnInit {
   }
 
   selectMesCatChange(){
+    this.tRegCatParcials = 0
     if (this.selectedCategoriaId != -1 ) {
       this.service.getCatByYearMonth(this.selected, this.selectedCategoriaId, this.selectedMesCat+1).subscribe
       (data=> {
-        this.regCatParcials = data;
+        let dades : Registre | any = data;
+        this.regCatParcials = dades;
+        if (this.regCatParcials.length != 0){
+          this.regCatParcials.forEach(reg =>  {
+            this.tRegCatParcials += reg.importreg
+          });   
+        }
       });     
     }
   }
 
   displayFnCat(cat: Categoria): string {
     if(cat != null){
-      if (cat == null) {
+      if (cat.id == 0) {
         return "";
       }else{
         return cat && cat.id+'_'+cat.nom ? cat.id+'_'+cat.nom : '';
