@@ -1,0 +1,133 @@
+::ng-deep {
+    
+    .mat-drawer-content {
+        z-index: auto!important;
+        overflow: hidden !important;
+    }
+    
+    .mat-drawer-container {
+        z-index: auto!important;
+    }
+
+    .scrollable-component {
+        height: calc(100vh - 60px);
+        overflow: auto !important;
+    }
+}
+
+.layout-container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #212529 !important; // #eef5f9 !important;
+}
+
+.content_outer_wrapper{
+    background-color: white !important;
+}
+
+.primaryColor{
+    color: #0d48a1;
+}
+
+/***********************
+    TOP NAV BAR
+**********************/
+
+::ng-deep .mat-menu-panel.mat-menu-panel {
+    color: #0d48a1 !important;
+    background-color: white !important;
+}
+
+.numVersio{
+    font-size: 14px !important;
+    color: rgba(0, 0, 0, 0.87);
+    opacity: 0.7;
+    margin: 0;
+    padding: 0px ;
+    text-transform: uppercase;
+    display: block;
+}
+
+.empresaName{
+    font-size: 18px; 
+    font-weight: 200; 
+    padding: 10px;
+    color: #0d48a1;// #4376ae94; 
+}
+
+.top-toolbar{
+    background-color: white !important;
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+}
+
+.toolbar-spacer{
+    flex: 1 1 auto;
+}
+
+/***********************
+    LEFTSIDE NAV BAR
+************************/
+.sidenav-container{
+    flex: 1;
+}
+  
+.device-is-mobile .sidenav-container{
+    flex: 1 0 auto;
+}
+
+.lblNav{
+    color: rgba(0, 0, 0, 0.87);
+    opacity: 0.7;
+    margin: 0;
+    padding: 10px 25px;
+    text-transform: uppercase;
+    font-size: 12px;
+    display: block;
+}
+
+.appName{ 
+    font-size: 16px; 
+    font-weight: 500; 
+    color: #0d47a170;
+    display: flex;
+}
+
+.lblApartat{
+    color: #0d47a1 !important;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.iconApartat{
+    color: #0d47a1 !important;
+}
+
+.mat-drawer.mat-drawer-opened{
+    background-color:  white!important;
+}
+
+.selected-list-item{
+    background-color: #0d47a1 !important;
+    .lblApartat{
+        color:  white !important;
+    }
+    .iconApartat{
+        color:  white !important;
+    }
+}
+
+.mat-expansion-panel{
+    background-color:   #eef5f9 !important;
+}
+.mat-expansion-panel-header {
+    padding: 0 16px;
+}

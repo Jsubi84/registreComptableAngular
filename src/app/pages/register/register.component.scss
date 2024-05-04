@@ -1,0 +1,30 @@
+.matInput{
+    width: 100%;
+}
+
+.mat-column-id{
+    width: 1%;
+}
+
+.reset{
+    height: 56px;
+}
+
+.item{
+    margin-left: 2rem ;
+}
+
+hr{
+    margin :0px;
+    border-top: 5px solid;
+}
+
+.paginador{
+    background-color: #d9c9ff;
+}
+
+@media screen and (min-width: 600px) {
+    .regFilter{
+        display: flex;
+    }
+}
