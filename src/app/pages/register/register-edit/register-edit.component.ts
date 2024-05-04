@@ -69,7 +69,7 @@ export class RegisterEditComponent implements OnInit{
         this.service.createRegistre(this.registreForm.value)
         .subscribe(data=>{
           this.dialog.info('El registre s\'ha guardat correctament','success');
-          this.router.navigate(["registres"]);
+          this.router.navigate(["register"]);
         })
       }else{
         Swal.fire({
