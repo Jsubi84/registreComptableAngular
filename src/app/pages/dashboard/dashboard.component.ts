@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DashboardService } from '../../service/dashboard.service';
 import { Subcategoria } from 'src/app/modelo/subcategoria';
 import { Registre } from 'src/app/modelo/registre';
@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Chart, registerables } from 'chart.js'
+import { Router } from '@angular/router';
 Chart.register(...registerables)
 
 const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
@@ -20,7 +21,6 @@ const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
 
   // displayedColumns: string[] = ['mes', 'ingres', 'despesa'];
 
@@ -70,8 +70,10 @@ export class DashboardComponent implements OnInit {
   
   displayedColumns: string[] = ['data', 'import'];
 
-  constructor(private service:DashboardService, private serviceCat:CategoriaService, private serviceReg: RegistreService, private serviceSub:SubcategoriaService ){}
+  router= inject(Router);
 
+  constructor(private service:DashboardService, private serviceCat:CategoriaService, private serviceReg: RegistreService, private serviceSub:SubcategoriaService ){}
+ 
   ngOnInit(): void {
 
     this.grafic = true;
@@ -90,8 +92,11 @@ export class DashboardComponent implements OnInit {
 
     this.serviceSub.getSubcategorias().subscribe
     (data=>{
-      this.optionsSub = data;
-    })    
+      this.optionsSub = data;}, 
+      error=>{
+        localStorage.removeItem('session_token');
+        this.router.navigate(["login"]);      
+    });    
     this.filteredOptionsSub = this.myControlSub.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -145,45 +150,46 @@ export class DashboardComponent implements OnInit {
   }
 
   resumTotal(){
-    if (this.chart != null){
-      this.chart.destroy();
-    }
-    this.chart = new Chart( 'yearTotals', {
-      type: 'bar',
-      data: {
-        labels: mesosAny,
-        datasets: [
-          {
-            label: 'Despesa',
-            data: this.dataDespesa,
-            borderWidth: 2,
-            borderRadius: 7,
-          },
-          {
-            label: 'Ingres',
-            data: this.dataIngres,
-            borderWidth: 2,
-            borderRadius: 7,
-          }       
-        ],
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
+    if (this.chart != null)this.chart.destroy();
+    if (document.getElementById('yearTotals') != null){
+      this.chart = new Chart('yearTotals', {
+        type: 'bar',
+        data: {
+          labels: mesosAny,
+          datasets: [
+            {
+              label: 'Despesa',
+              data: this.dataDespesa,
+              borderWidth: 2,
+              borderRadius: 7,
+            },
+            {
+              label: 'Ingres',
+              data: this.dataIngres,
+              borderWidth: 2,
+              borderRadius: 7,
+            }       
+          ],
         },
-        layout: {
-          padding:{
-            top:10,
-            left:30,
-            right:30,
-            bottom:10
-          } 
-        }
-      },
-    });
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          layout: {
+            padding:{
+              top:10,
+              left:30,
+              right:30,
+              bottom:10
+            } 
+          }
+        },
+      });      
+    }
+
   }
 
   //--------------

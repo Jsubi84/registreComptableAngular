@@ -1,8 +1,9 @@
-import { Component, ViewEncapsulation,  ChangeDetectorRef, OnDestroy, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation,  ChangeDetectorRef, OnDestroy, ViewChild, OnInit, inject } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { environment } from '../../../environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -10,7 +11,10 @@ import { MatExpansionPanel } from '@angular/material/expansion';
   styleUrls: ['./layout.component.scss'],
 	encapsulation: ViewEncapsulation.Emulated,
 })
+
 export class LayoutComponent implements OnDestroy, OnInit {
+
+	router = inject(Router);
 	
 	mobileQuery: MediaQueryList;
 	private _mobileQueryListener: () => void;
@@ -40,26 +44,26 @@ export class LayoutComponent implements OnDestroy, OnInit {
 
 	buildMenu(){
     this.menu = [
-      {
-        displayName: 'Home',
-        iconName: 'home',
-        route: 'dashboard',
-      },
-      {
-        displayName: 'Categoria',
-        iconName: 'category',
-        route: 'category',
-      },
-      {
-        displayName: 'Subcategoria',
-        iconName: 'featured_play_listy',
-        route: 'subcategory',
-      },
-	  {
-        displayName: 'Registres',
-        iconName: 'attach_money',
-        route: 'register',
-      },
+		{
+			displayName: 'Home',
+			iconName: 'home',
+			route: 'dashboard',
+		},
+		{
+			displayName: 'Categoria',
+			iconName: 'category',
+			route: 'category',
+		},
+		{
+			displayName: 'Subcategoria',
+			iconName: 'featured_play_listy',
+			route: 'subcategory',
+		},
+		{
+			displayName: 'Registres',
+			iconName: 'attach_money',
+			route: 'register',
+		},
     ];
 	}
 
@@ -72,6 +76,15 @@ export class LayoutComponent implements OnDestroy, OnInit {
 		if (this.mobileQuery.matches){
 			this.snav.toggle();
 		}
+	}
+
+	logout(){
+		localStorage.removeItem('session_token');
+		this.router.navigate(['/login']);
+	}
+
+	users(){
+		this.router.navigate(['/users']);
 	}
 }
 

@@ -5,6 +5,5 @@ export class RegistreFilter{
         subcatId!: number;
         page!: number;
         size!: number;
-        constructor(){}
 }
 

@@ -65,6 +65,8 @@ export class RegisterComponent implements OnInit{
 
   displayedColumns: string[] = ['data', 'import', 'subcategoria'];
 
+  actions:boolean = false;
+
   constructor( private serviceSub:SubcategoriaService, private service:RegistreService, private router:Router, private dialog:Dialogs){
     this.progres = true;
     this.filter = {
@@ -97,7 +99,8 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit(): void {
     window.innerWidth > 600 ? this.mobil = false : this.mobil = true; 
-    if (this.mobil == false ) this.displayedColumns.push('accions');
+    if (this.mobil == false ) this.displayedColumns.push('desc');    
+    //if (this.mobil == false ) this.displayedColumns.push('accions');
     this.loadData(this.filter);
     this.regPaginator = new MatTableDataSource<Registre>(this.registres);
     this.regPaginator.paginator = this.paginator; 

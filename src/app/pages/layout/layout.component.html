@@ -1,11 +1,16 @@
 <div class="layout-container" [class.device-is-mobile]="mobileQuery.matches">
   <mat-toolbar class="top-toolbar">
-    <button mat-icon-button color="primary" (click)="snav.toggle()">
+    <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span *ngIf="!mobileQuery.matches" class="empresaName" ></span>
     <span class="toolbar-spacer"></span>
-    <span class="numVersio">V{{environment.version}}</span>
+    <span class="numVersio">Ver. {{environment.version}}</span>
+    <button mat-icon-button (click)="users()">
+      <mat-icon >supervisor_account</mat-icon>    
+    </button>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>    
+    </button>
   </mat-toolbar>
   <mat-drawer-container class="sidenav-container">
     <mat-drawer #snav [mode]="isMobile ? 'over' : 'side'" opened>

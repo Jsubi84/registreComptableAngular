@@ -1,0 +1,16 @@
+<div id="container">
+    <div id="contenedor">
+        <div id="central">
+            <div id="login">
+                <div class="titulo"> Iniciar sessió </div>
+                <form id="loginform" [formGroup]="loginForm">
+                    <input type="text" name="usuario" formControlName="username" placeholder="Usuari" required autocomplete="username">
+                    <input type="password" formControlName="password" placeholder="Contrasenya" name="password" required autocomplete="current-password">
+                    <button (click) = "login()" title="Entrar" name="Entrar">Login</button>
+                </form>
+            </div>
+        </div>
+    </div> 
+</div>
+
+

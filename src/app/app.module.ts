@@ -1,7 +1,7 @@
 import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from  "@angular/forms"
@@ -23,11 +23,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AppRoutingModule } from "./app.routing"
+import { AppRoutingModule } from "./app.routing";
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { UsersComponent } from './pages/users/users.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UsersComponent,
   ],
   imports: [
     CommonModule,
@@ -55,7 +58,13 @@ import { AppRoutingModule } from "./app.routing"
     BrowserModule
   ],
   exports: [MatDatepickerModule],
-  providers: [CategoriaService, Dialogs],
+  providers: [CategoriaService, Dialogs, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    } 
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

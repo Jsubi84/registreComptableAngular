@@ -14,8 +14,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { RouterModule } from '@angular/router';
 
 const routes_extras = [
-    { path:'', component:DashboardComponent},
- ]
+  { path:'', component:DashboardComponent},
+]
 
 
 @NgModule({

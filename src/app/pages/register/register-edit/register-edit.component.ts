@@ -134,7 +134,6 @@ export class RegisterEditComponent implements OnInit{
   Actualitzar(){
     this.service.updateRegistre(this.registreForm.value).subscribe(
     data=>{
-      console.log(data);
       this.dialog.simpleAlert('El registre ha estat actualitzat', 'Registre actualitzat','info');
       this.router.navigate(["register"]);
     })

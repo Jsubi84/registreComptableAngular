@@ -5,6 +5,5 @@ export class Subcategoria{
     nom: string ="";
     descripcio:string="";
     categoria= new Categoria()
-    constructor(){}
 }
 

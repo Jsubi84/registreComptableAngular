@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { LayoutRoutes } from './layout.routes';
 import { LayoutComponent } from './layout.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatToolbarModule,
     MatButtonModule,
+    MatMenuModule
   ],exports: []
 })
 export class LayoutModule {}

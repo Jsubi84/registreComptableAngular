@@ -4,6 +4,5 @@ export class Categoria{
     tipus: boolean = false;
     nom: string = "";
     descripcio:string = "";
-    constructor(){}
 }
 

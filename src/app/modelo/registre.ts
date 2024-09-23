@@ -7,6 +7,5 @@ export class Registre{
         tipus: boolean = false;
         descripcio: string = "";        
         subcategoria = new Subcategoria();
-        constructor(){}
 }
 

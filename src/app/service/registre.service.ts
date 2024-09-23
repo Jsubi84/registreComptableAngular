@@ -26,7 +26,6 @@ export class RegistreService {
   }
 
   createRegistre(registre:Registre){
-    console.log(registre);
     return this.http.post<Registre>(this.Url, registre);
   }
 

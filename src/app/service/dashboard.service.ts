@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class DashboardService {
   }
 
   getTotalCatByYear(year:number, idCat:number){
-    this.params = new HttpParams();
+    this.params = new HttpParams(); 
     this.params = this.params.set('idCat', idCat);
     this.params = this.params.set('year', year);
     return this.http.get(this.Url+"/getTotalCatByYear", { params: this.params});

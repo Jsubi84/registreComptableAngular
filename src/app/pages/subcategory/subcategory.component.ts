@@ -45,7 +45,7 @@ export class SubcategoryComponent implements OnInit {
         this.subcategories.sort((x,y)=> x.id- y.id);
         this.progres = false;
       })
-      this.serviceCat.getCategorias().subscribe
+    this.serviceCat.getCategorias().subscribe
       (data=>{
         this.options = data;
       })    
