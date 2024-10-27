@@ -31,7 +31,10 @@ export class CategoryComponent {
     (data=>{
       this.categories = data;
       this.categories.sort((x,y)=> x.id- y.id);
-      this.progres = false;
+      this.progres = false;}, 
+      error=>{
+        localStorage.removeItem('session_token');
+        this.router.navigate(["login"]);     
     }) 
   }
 
@@ -63,7 +66,7 @@ export class CategoryComponent {
               (data=>{
                 this.categories= this.categories.filter(c=>c!==categoria);
               })  
-            this.dialog.registregBorrat();  
+            this.dialog.registregBorrat("S'ha borrat la categoria");  
           }else{
             this.dialog.simpleAlert("La categoria no es pot borrar ja que te "+ data +" subcategorias associades","Categoria no borrable","info");
           } 
@@ -73,11 +76,7 @@ export class CategoryComponent {
   }
 
   public tipusChange(tipus:Boolean): String{
-    if (tipus){
-      return "Ingres";
-    }else{
-      return "Despesa";
-    }
+    return  (tipus)? "Ingres":"Despesa"; 
   }
 
 }

@@ -18,4 +18,20 @@ export class UsersService {
   getAllUsers(){
     return this.http.get<User[]>(this.Url);
   }
+
+  newUser(user:User){
+    return this.http.post<User>(this.Url+"/new", user);
+  }
+
+  deleteUser(u:User){
+    return this.http.delete<User>(this.Url+"/"+u.id);
+  }
+
+  getUserId(id:number){
+    return this.http.get<User>(this.Url+"/"+id);
+  }
+
+  updateUser(user: User){
+    return this.http.put(this.Url+"/update/"+user.id, user);
+  }
 }

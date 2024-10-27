@@ -47,7 +47,10 @@ export class SubcategoryComponent implements OnInit {
       })
     this.serviceCat.getCategorias().subscribe
       (data=>{
-        this.options = data;
+        this.options = data;}, 
+        error=>{
+          localStorage.removeItem('session_token');
+          this.router.navigate(["login"]);  
       })    
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),
@@ -86,7 +89,7 @@ export class SubcategoryComponent implements OnInit {
             (data=>{
               this.subcategories= this.subcategories.filter(s=>s!==subcategoria);
             })  
-            this.dialog.registregBorrat();    
+            this.dialog.registregBorrat("S'ha borrat la subcategoria");    
           }else{
             this.dialog.simpleAlert("La subcategoria no es pot borrar ja que te "+ data +" registres associats","Subcategoria no borrable","info");
           } 

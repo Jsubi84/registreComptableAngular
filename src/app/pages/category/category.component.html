@@ -1,14 +1,14 @@
 <div class= "container p-3 pb-5 overflow-auto">
-    <div class="card mat-elevation-z6">
-      <div class="card-header" style="display:flex ; justify-content: space-between; justify-items: center;">
+    <div class="card mat-elevation-z6 overflow-hidden">
+      <div class="card-header d-flex justify-content-between justify-items header">
         <h1 >Categoria</h1>
-        <button (click)="Nou()" mat-fab color="warn" aria-label="Example icon button with a home icon">
+        <button (click)="Nou()" mat-fab color="warn">
           <mat-icon> add</mat-icon>
         </button>
       </div>
       <mat-progress-bar *ngIf="progres" mode="query"></mat-progress-bar>
       <!-- Versio tablet desktop  -->
-      <table *ngIf = "!this.mobil" mat-table [dataSource]="categories" class="mat-elevation-z8">
+      <table *ngIf = "!this.mobil" mat-table [dataSource]="categories">
         
             <!-- Name Column -->
             <ng-container matColumnDef="nom">
@@ -43,7 +43,7 @@
       </table>
       <!-- Versio mobil  -->
       <div class="mat-elevation-z4 overflow-auto" *ngIf = "this.mobil" >
-        <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+        <table mat-table [dataSource]="categories">
         
           <!-- Name Column -->
           <ng-container matColumnDef="nom">

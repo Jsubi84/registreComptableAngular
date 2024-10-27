@@ -23,11 +23,11 @@ public simpleAlert = (missatge : string, titol : string, tipus : SweetAlertIcon)
     timer: 1500
   })
 
-  public registregBorrat = () =>
+  public registregBorrat = (missatge: string) =>
   Swal.fire({
     position: 'center',
     icon: 'info',
-    title: 'El registre s\'ha borrat correctament',
+    title: missatge,
     showConfirmButton: false,
     timer: 1000
   })

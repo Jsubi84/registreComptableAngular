@@ -47,13 +47,13 @@ export class RegisterEditComponent implements OnInit{
   constructor(private formBuilder: FormBuilder, private router:Router, private _route:ActivatedRoute, private service:RegistreService,  private serviceSub:SubcategoriaService,private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
 
-      this.registreForm = new FormGroup({
-        id: new FormControl(),
-        subcategoria : new FormControl('', Validators.required),
-        importreg: new FormControl('', Validators.required),
-        data: new FormControl(moment(), Validators.required),
-        descripcio: new FormControl(''),
-      });
+    this.registreForm = new FormGroup({
+      id: new FormControl(),
+      subcategoria : new FormControl('', Validators.required),
+      importreg: new FormControl('', Validators.required),
+      data: new FormControl(moment(), Validators.required),
+      descripcio: new FormControl(''),
+    });
   }
 
   Guardar(){
@@ -97,7 +97,10 @@ export class RegisterEditComponent implements OnInit{
   ngOnInit(): void {
     this.serviceSub.getSubcategorias().subscribe
     (data=>{
-      this.options = data;
+      this.options = data;}, 
+      error=>{
+        localStorage.removeItem('session_token');
+        this.router.navigate(["login"]);  
     })    
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

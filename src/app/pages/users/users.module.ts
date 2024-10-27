@@ -14,12 +14,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { UsersService } from 'src/app/service/users.service';
-
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 const routes = [
   { path:'', component:UsersComponent},
-//{ path:'edit', component:UsersEditComponent},
-//{ path:'edit/:id', component:SubcategoryEditComponent}
+  { path:'edit', component:UserEditComponent},
+  { path:'edit/:id', component:UserEditComponent}
 ];
 
 @NgModule({
@@ -35,8 +36,12 @@ const routes = [
     ReactiveFormsModule,
     MatButtonToggleModule,
     MatButtonModule,
+    MatChipsModule
   ],
   exports: [RouterModule],
   providers: [UsersService, Dialogs],
+  declarations: [
+    UserEditComponent
+  ],
 })
 export class UsersModule { }

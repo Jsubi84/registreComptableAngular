@@ -1,4 +1,4 @@
-$color1: #80c2d0 ;
+$color1: #65b9ccd3 ;
 $color2: #e6f4fc ;
 $color3: #235660;
 $color4: #618290 ;
@@ -11,6 +11,7 @@ button[mat-icon-button]{
     &.icon-button-small {
         width: $small-size-button !important;
         height: $small-size-button !important;
+        color: $color3 !important;
         padding: 3px;
         margin: 3px;
         .mat-icon {
@@ -35,11 +36,17 @@ button[mat-icon-button]{
 
 .mdc-data-table__header-row{
     height: 30px;
+    background-color: $color1; 
 }
 
 tr.element-row:hover{
-    background-color: whitesmoke;
+    background-color: $color2;
 }
+
+.header{
+    background-color: $color1; 
+    border-bottom: 0px;
+} 
 
 ::ng-deep {
 
@@ -49,4 +56,8 @@ tr.element-row:hover{
         height: 22px!important;
         line-height: 22px !important;
     }   
+}
+
+.mat-mdc-paginator{
+    background-color: $color1!important;
 }

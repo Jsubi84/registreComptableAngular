@@ -58,7 +58,10 @@ export class CategoryEditComponent implements OnInit{
       const tipusControl = this.categoriaForm?.get('tipus');
       if (tipusControl) {
         tipusControl.setValue(""+ this.categoriaForm.value.tipus+"");
-      }
+      }}, 
+      error=>{
+        localStorage.removeItem('session_token');
+        this.router.navigate(["login"]);  
     });
   }
 

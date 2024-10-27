@@ -23,7 +23,8 @@ export class SubcategoryEditComponent implements OnInit{
   isEdit: Boolean = false;
   value = 'Clear';
 
-  constructor(private router:Router, private _route:ActivatedRoute, private service:SubcategoriaService,  private serviceCat:CategoriaService,private dialog:Dialogs){
+  constructor(private router:Router, private _route:ActivatedRoute, private service:SubcategoriaService,
+    private serviceCat:CategoriaService, private dialog:Dialogs){
     this.isEdit= this.service.isEdit;
 
     this.subcategoriaForm = new FormGroup({
@@ -45,7 +46,10 @@ export class SubcategoryEditComponent implements OnInit{
   ngOnInit(): void {
     this.serviceCat.getCategorias().subscribe
     (data=>{
-      this.options = data;
+      this.options = data;}, 
+      error=>{
+        localStorage.removeItem('session_token');
+        this.router.navigate(["login"]);  
     })    
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

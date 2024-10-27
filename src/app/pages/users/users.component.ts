@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/modelo/user';
 import { UsersService } from 'src/app/service/users.service';
+import { Router } from '@angular/router'
+import Swal from 'sweetalert2';
+import { Dialogs } from 'src/app/dialogs/dialogs'
 
 @Component({
   selector: 'app-users',
@@ -16,7 +19,7 @@ export class UsersComponent {
   displayedColumns: string[] = ['id','nom', 'rol'];
   dataSource = this.usuaris;
 
-  constructor( private service:UsersService){
+  constructor( private service:UsersService, private router:Router, private dialog:Dialogs){
     this.progres = true;
   }
 
@@ -24,10 +27,12 @@ export class UsersComponent {
     window.innerWidth > 600 ? this.mobil = false : this.mobil = true; 
     this.service.getAllUsers().subscribe
     (data=>{
-      console.log(data)
       this.usuaris = data;
       this.usuaris.sort((x,y)=> x.id- y.id);
-      this.progres = false;
+      this.progres = false;}, 
+      error=>{
+        localStorage.removeItem('session_token');
+        this.router.navigate(["login"]);  
     }) 
   }
 
@@ -39,6 +44,32 @@ export class UsersComponent {
     return result;
   }
 
-  Nou(){}
+  Nou(){
+    this.router.navigate(["users/edit"]);
+  }
+
+  Editar(user: User){
+    this.router.navigate(["users/edit/", user.id]);
+  }
+
+  Delete(user: User){
+    Swal.fire({
+      title: 'Vols borrar l\'usuari?',
+      text: "Si borres no es pot recuperar",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borra\'l'
+    }).then((result) => {
+      if (result.isConfirmed) {
+            this.service.deleteUser(user).subscribe
+            (data=>{
+              this.usuaris= this.usuaris.filter(u=>u!==user);
+            })  
+        this.dialog.info("S'ha borrat l'usuari", "success");    
+      }
+    })
+  }
 
 }

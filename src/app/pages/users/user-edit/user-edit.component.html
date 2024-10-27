@@ -1,0 +1,28 @@
+<div class="container col-lg-5 d-flex flex-column pt-3">
+    <div class="card">
+        <div class="card-header header">
+            <h1 *ngIf="!isEdit">Alta usuari</h1>
+            <h1 *ngIf="isEdit">Actualitzar usuari</h1>
+        </div>
+        <div class="card-body">
+            <form class="guardar" [formGroup]="userForm" action="">
+                <mat-form-field class="form-group matInput">
+                    <mat-label>User name</mat-label>
+                    <input matInput name="nom" required="true" formControlName= "nom" placeholder="Nom d'usuari" autocomplete="off" value="">
+                </mat-form-field>
+                <div class="d-flex justify-content-center">
+                    <mat-chip-listbox  multiple formControlName="rols">
+                        <mat-chip-option color="warn"> ADMIN </mat-chip-option>
+                        <mat-chip-option color="warn"> STD </mat-chip-option>
+                    </mat-chip-listbox>                  
+                </div>
+                <br>
+                <div class="buttons" style="display:flex ; justify-content: space-between; justify-items: center;">
+                    <button mat-flat-button color="primary" [disabled]="userForm.invalid" *ngIf="!isEdit" class="btn btn-primary" (click)="Guardar()">Guardar</button>
+                    <button mat-flat-button color="primary" [disabled]="userForm.invalid" *ngIf="isEdit" class="btn btn-primary" (click)="Actualizar()">Actualitzar</button>
+                    <button mat-flat-button color="link"  class="btn btn-light" (click)="Cancelar()">Cancelar</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>

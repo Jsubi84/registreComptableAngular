@@ -101,13 +101,26 @@ export class RegisterComponent implements OnInit{
     window.innerWidth > 600 ? this.mobil = false : this.mobil = true; 
     if (this.mobil == false ) this.displayedColumns.push('desc');    
     //if (this.mobil == false ) this.displayedColumns.push('accions');
+    this.paginator._intl.itemsPerPageLabel = "Registres per pàgina"
+    this.paginator._intl.firstPageLabel = "Primera pàgina"
+    this.paginator._intl.nextPageLabel = "Següent pàgina"
+    this.paginator._intl.previousPageLabel = "Anterior pàgina"
+    this.paginator._intl.lastPageLabel = "Última pàgina"
+    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      const start = page * pageSize + 1;
+      const end = (page + 1) * pageSize;
+      return `${start} - ${end} de ${length}`;
+    };
     this.loadData(this.filter);
     this.regPaginator = new MatTableDataSource<Registre>(this.registres);
     this.regPaginator.paginator = this.paginator; 
     this.serviceSub.getSubcategorias().subscribe
     (data=>{
-      this.options = data;
-    })  
+      this.options = data;}, 
+    error=>{
+      localStorage.removeItem('session_token');
+      this.router.navigate(["login"]);      
+    })
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -142,7 +155,7 @@ export class RegisterComponent implements OnInit{
             (data=>{
               this.registres= this.registres.filter(s=>s!==registre);
             })  
-        this.dialog.registregBorrat();    
+        this.dialog.registregBorrat("S'ha borrat el registre");    
       }
     })
   }
