@@ -5,7 +5,6 @@ export class User{
     password!: string;
     roleRequest!: RoleRequest;
     roles!: roles[];
-    
 }
 
 export class RoleRequest{
@@ -16,3 +15,7 @@ export class roles{
     roleEnum!: String;
 }
 
+export class userResponse{
+    success!: boolean;
+    message!: string ; 
+}

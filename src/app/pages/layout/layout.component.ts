@@ -84,6 +84,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
 	}
 
 	users(){
+		this.selectedItem = null;
 		this.router.navigate(['/users']);
 	}
 }

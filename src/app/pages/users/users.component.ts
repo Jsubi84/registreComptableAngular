@@ -24,7 +24,7 @@ export class UsersComponent {
   }
 
   ngOnInit(): void {
-    window.innerWidth > 600 ? this.mobil = false : this.mobil = true; 
+    this.mobil = window.innerWidth > 600 ? false : true; 
     this.service.getAllUsers().subscribe
     (data=>{
       this.usuaris = data;
@@ -48,7 +48,8 @@ export class UsersComponent {
     this.router.navigate(["users/edit"]);
   }
 
-  Editar(user: User){
+  Editar(user: User, row = false){
+    if (row && !this.mobil) return;
     this.router.navigate(["users/edit/", user.id]);
   }
 
@@ -72,4 +73,9 @@ export class UsersComponent {
     })
   }
 
+  passRestore(user:User){
+    //Fer una restauració de password posar un pass inicial. 
+    //S'haura de fer una nova petició 
+    console.log(user);
+  }
 }

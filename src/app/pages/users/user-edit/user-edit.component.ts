@@ -58,8 +58,13 @@ export class UserEditComponent implements OnInit{
     this.service.newUser(user).subscribe
     (data=>{
       if (data){
-        this.dialog.info("L\'usuari ha estat creat","success");
-        this.router.navigate(["users"])        
+        console.log(data);
+        if(data.success){
+          this.dialog.info("L\'usuari ha estat creat","success");
+          this.router.navigate(["users"])  
+        } else {
+          this.dialog.info("L\'usuari ja existeix","error");
+        }
       } else{
         this.dialog.info("Alguna cosa no ha anat bé.","error");
       }
@@ -73,7 +78,6 @@ export class UserEditComponent implements OnInit{
     this.userUpdate.username = this.userForm.value.nom
     this.service.updateUser(this.userUpdate).subscribe
     (data=>{
-      console.log(data);
       if (data){
         this.dialog.info("L\'usuari ha estat actualitzat","success");
         this.router.navigate(["users"])       

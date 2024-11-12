@@ -29,6 +29,9 @@
                 <div class="d-flex justify-content-between">
                   <span class="align-content-center">{{roles(element.roles)}}</span>
                   <div *ngIf= "element.showButtons" class="d-flex flex-flow" >
+                      <button class="icon-button-small" mat-icon-button (click)="passRestore(element)" color="primary">
+                        <mat-icon>lock_reset</mat-icon>
+                      </button> 
                       <button class="icon-button-small" mat-icon-button (click)="Editar(element)" color="primary">
                         <mat-icon>edit</mat-icon>
                       </button>
@@ -42,7 +45,8 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row  *matRowDef="let row; columns: displayedColumns;" class="element-row"
               (mouseover)="row.showButtons = true"
-              (mouseleave)="row.showButtons = false">
+              (mouseleave)="row.showButtons = false"
+              (click)="Editar(row, true)">
             </tr>
       </table>
     </div>

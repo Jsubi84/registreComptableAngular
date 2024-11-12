@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
-import { User } from '../modelo/user';
+import { User, userResponse } from '../modelo/user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   newUser(user:User){
-    return this.http.post<User>(this.Url+"/new", user);
+    return this.http.post<userResponse>(this.Url+"/new", user);
   }
 
   deleteUser(u:User){

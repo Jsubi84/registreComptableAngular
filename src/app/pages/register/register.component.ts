@@ -98,9 +98,8 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    window.innerWidth > 600 ? this.mobil = false : this.mobil = true; 
+    this.mobil = window.innerWidth > 600 ? false : true; 
     if (this.mobil == false ) this.displayedColumns.push('desc');    
-    //if (this.mobil == false ) this.displayedColumns.push('accions');
     this.paginator._intl.itemsPerPageLabel = "Registres per pàgina"
     this.paginator._intl.firstPageLabel = "Primera pàgina"
     this.paginator._intl.nextPageLabel = "Següent pàgina"
@@ -135,7 +134,8 @@ export class RegisterComponent implements OnInit{
     this.service.isEdit = false;
   } 
 
-  Editar(registre:Registre){
+  Editar(registre:Registre, row = false){
+    if (row && !this.mobil) return;
     this.router.navigate(["register/edit/", registre.id]);
     this.service.isEdit = true;
   }

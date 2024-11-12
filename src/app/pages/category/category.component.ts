@@ -17,7 +17,7 @@ export class CategoryComponent {
   progres: Boolean = false;
   mobil: Boolean = false;
   
-  displayedColumns: string[] = [ 'nom', 'descripcio','tipus'];
+  displayedColumns: string[] = [ 'nom', 'tipus','descripcio'];
   dataSource = this.categories;
 
   constructor( private service:CategoriaService, private subCat_service: SubcategoriaService, private router:Router, private dialog:Dialogs){
@@ -25,8 +25,7 @@ export class CategoryComponent {
   }
 
   ngOnInit(): void {
-    window.innerWidth > 600 ? this.mobil = false : this.mobil = true; 
-    if (this.mobil == false ) this.displayedColumns.push('accions');
+    this.mobil = window.innerWidth > 600 ? false : true; 
     this.service.getCategorias().subscribe
     (data=>{
       this.categories = data;
@@ -43,7 +42,8 @@ export class CategoryComponent {
     this.service.isEdit = false;
   } 
 
-  Editar(categoria:Categoria){
+  Editar(categoria:Categoria, row = false){
+    if (row && !this.mobil) return;
     this.router.navigate(['category/edit/', categoria.id]);
     this.service.isEdit = true;
   }

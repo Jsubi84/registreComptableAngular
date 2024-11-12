@@ -28,7 +28,7 @@ export class SubcategoryComponent implements OnInit {
   progres: Boolean = false;
   mobil: Boolean = false;
 
-  displayedColumns: string[] = ['nom', 'descripcio', 'categoria'];
+  displayedColumns: string[] = ['nom', 'categoria', 'descripcio'];
   dataSource = this.subcategories;
 
   constructor(private serviceCat:CategoriaService, private registre_service: RegistreService, private service:SubcategoriaService, private router:Router, private dialog:Dialogs){
@@ -36,8 +36,7 @@ export class SubcategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.innerWidth > 600 ? this.mobil = false : this.mobil = true; 
-    if (this.mobil == false ) this.displayedColumns.push('accions');
+    this.mobil = window.innerWidth > 600 ? false : true; 
     this.service.getSubcategorias().subscribe
       (data=>{
         this.subcategories = data;
@@ -66,7 +65,8 @@ export class SubcategoryComponent implements OnInit {
     this.service.isEdit = false;
   } 
 
-  Editar(subcategoria:Subcategoria){
+  Editar(subcategoria:Subcategoria, row = false){
+    if (row && !this.mobil) return;
     this.router.navigate(["subcategory/edit/", subcategoria.id]);
     this.service.isEdit = true;
   }
