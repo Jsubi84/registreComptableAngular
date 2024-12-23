@@ -66,13 +66,13 @@ export class UsersComponent {
       confirmButtonText: "Si, borra'l",
     }).then((result) => {
       if (result.isConfirmed) {
+        if (this.cookieService.getUserName() == user.username ){
+          this.dialog.info("No pots borrar el propi usuari", 'warning');
+          return;
+        } 
         this.service.deleteUser(user).subscribe((data) => {
-          if (this.cookieService.getUserName() == user.username ){
-            this.dialog.info("No pots borrar el propi usuari", 'warning');
-          } else {
-            this.usuaris = this.usuaris.filter((u) => u !== user);
-            this.dialog.info("S'ha borrat l'usuari", 'success');
-          }
+          this.usuaris = this.usuaris.filter((u) => u !== user);
+          this.dialog.info("S'ha borrat l'usuari", 'success');
         });
       }
     });
