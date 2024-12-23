@@ -46,8 +46,8 @@ export class CategoryEditComponent implements OnInit{
 
   recuperar(){
     let id = this._route.snapshot.params['id'];
-    this.service.getCategoriaId(id).subscribe(
-      data=>{
+    this.service.getCategoriaId(id).subscribe({
+      next: data=>{
         this.categoriaForm = this.formBuilder.group({
           id: data.id,
           tipus: data.tipus,
@@ -59,9 +59,11 @@ export class CategoryEditComponent implements OnInit{
       if (tipusControl) {
         tipusControl.setValue(""+ this.categoriaForm.value.tipus+"");
       }}, 
-      error=>{
-        localStorage.removeItem('session_token');
-        this.router.navigate(["login"]);  
+      error: (e)=>{
+        if (e.status == 401){
+          this.router.navigate(["login"])
+        }    
+      }
     });
   }
 

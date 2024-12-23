@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-layout',
@@ -28,9 +29,9 @@ export class LayoutComponent implements OnDestroy, OnInit {
 	public flaglogoEmp: boolean = false;
 
 
-	menu: NavItem[] = [];
+	menubar: NavItem[] = [];
 
-	constructor( changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+	constructor( changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,private cookieService: CookieService) {
 		this.mobileQuery = media.matchMedia('(max-width: 600px)');
 		this.isMobile = this.mobileQuery.matches;
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -43,7 +44,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
 	}
 
 	buildMenu(){
-    this.menu = [
+    this.menubar = [
 		{
 			displayName: 'Home',
 			iconName: 'home',
@@ -79,13 +80,18 @@ export class LayoutComponent implements OnDestroy, OnInit {
 	}
 
 	logout(){
-		localStorage.removeItem('session_token');
+		this.cookieService.delete('session_token');
 		this.router.navigate(['/login']);
 	}
 
 	users(){
 		this.selectedItem = null;
 		this.router.navigate(['/users']);
+	}
+
+	passkey(){
+		this.selectedItem = null;
+		this.router.navigate(['/passkey']);
 	}
 }
 

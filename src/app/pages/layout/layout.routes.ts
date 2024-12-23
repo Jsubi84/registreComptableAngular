@@ -17,6 +17,7 @@ const LAYOUT_ROUTES:Routes = [
       { path: 'subcategory', loadChildren: () => import('../subcategory/subcategory.module').then(m => m.SubcategoryModule)},
       { path: 'register', loadChildren: () => import('../register/register.module').then(m => m.RegisterModule)},   
       { path: 'users', loadChildren: () => import('../users/users.module').then(m => m.UsersModule)},   
+      { path: 'passkey', loadChildren: () => import('../pass-key/pass-key.module').then(m => m.PassKeyModule)},   
     ]
   }
 ];

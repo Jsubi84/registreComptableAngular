@@ -22,8 +22,6 @@ const mesosAny = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost
 })
 export class DashboardComponent implements OnInit {
 
-  // displayedColumns: string[] = ['mes', 'ingres', 'despesa'];
-
   chart : any = null
 
   //Seleccions parcials
@@ -90,12 +88,15 @@ export class DashboardComponent implements OnInit {
     this.actualitzaResumAny();
     this.resumTotal();
 
-    this.serviceSub.getSubcategorias().subscribe
-    (data=>{
-      this.optionsSub = data;}, 
-      error=>{
-        localStorage.removeItem('session_token');
-        this.router.navigate(["login"]);      
+    this.serviceSub.getSubcategorias().subscribe({
+      next: data=>{
+        this.optionsSub = data;
+      },
+      error: (e)=>{
+        if (e.status == 401){
+          this.router.navigate(["login"])
+        }    
+      }
     });    
     this.filteredOptionsSub = this.myControlSub.valueChanges.pipe(
       startWith(''),
@@ -192,6 +193,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  //#region Filtres Subcategories
   //--------------
   //SUBCATEGORIES
   //--------------
@@ -251,7 +253,10 @@ export class DashboardComponent implements OnInit {
   renderTaulaParcialsSub(){
     return this.regSubParcials.length != 0 ? true: false;
   }
+  //#endregion
 
+
+  //#region Filtres Categories
   //--------------
   //CATEGORIES
   //--------------
@@ -313,5 +318,6 @@ export class DashboardComponent implements OnInit {
   renderTaulaParcialsCat(){
     return this.regCatParcials.length != 0 ? true: false;
   }
+  //#endregion
 
 }

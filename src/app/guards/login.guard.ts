@@ -1,3 +1,8 @@
+import { inject } from "@angular/core";
+import { CookieManagerService } from "../service/cookies-manager-service.service";
+CookieManagerService
+
 export const loginGuard = () => {
-    return (localStorage.getItem('session_token'))? true: false;
+    const cookiesServices = inject(CookieManagerService);
+    return (cookiesServices.checkSessionToken())? true: false;
 }

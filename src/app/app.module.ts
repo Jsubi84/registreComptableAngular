@@ -26,6 +26,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppRoutingModule } from "./app.routing";
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UsersComponent } from './pages/users/users.component';
+import { PassKeyModule } from './pages/pass-key/pass-key.module';
+import { CookieManagerService } from './service/cookies-manager-service.service';
+CookieManagerService
 
 @NgModule({
   declarations: [
@@ -55,10 +58,13 @@ import { UsersComponent } from './pages/users/users.component';
     MatListModule,
     MatToolbarModule,
     AppRoutingModule,
-    BrowserModule
+    BrowserModule,
+    PassKeyModule
   ],
   exports: [MatDatepickerModule],
-  providers: [CategoriaService, Dialogs, 
+  providers: [CategoriaService, 
+    Dialogs,
+    CookieManagerService, 
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

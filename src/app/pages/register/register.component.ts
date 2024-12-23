@@ -40,7 +40,6 @@ export const DATE_PICKER_FORMAT = {
 
 export class RegisterComponent implements OnInit{
 
-
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   range = new FormGroup({
@@ -67,7 +66,8 @@ export class RegisterComponent implements OnInit{
 
   actions:boolean = false;
 
-  constructor( private serviceSub:SubcategoriaService, private service:RegistreService, private router:Router, private dialog:Dialogs){
+  constructor( private serviceSub:SubcategoriaService, private service:RegistreService, 
+    private router:Router, private dialog:Dialogs){
     this.progres = true;
     this.filter = {
       dInici :"",
@@ -113,12 +113,14 @@ export class RegisterComponent implements OnInit{
     this.loadData(this.filter);
     this.regPaginator = new MatTableDataSource<Registre>(this.registres);
     this.regPaginator.paginator = this.paginator; 
-    this.serviceSub.getSubcategorias().subscribe
-    (data=>{
-      this.options = data;}, 
-    error=>{
-      localStorage.removeItem('session_token');
-      this.router.navigate(["login"]);      
+    this.serviceSub.getSubcategorias().subscribe({
+      next: data=>{
+        this.options = data;
+      }, error: (e)=>{
+        if (e.status == 401){
+          this.router.navigate(["login"]);
+        }
+      }
     })
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),

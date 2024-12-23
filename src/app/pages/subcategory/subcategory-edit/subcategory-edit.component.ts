@@ -44,13 +44,15 @@ export class SubcategoryEditComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.serviceCat.getCategorias().subscribe
-    (data=>{
-      this.options = data;}, 
-      error=>{
-        localStorage.removeItem('session_token');
-        this.router.navigate(["login"]);  
-    })    
+    this.serviceCat.getCategorias().subscribe({
+      next: data=>{
+        this.options = data;
+      }, error: (e)=>{
+        if (e.status == 401){
+          this.router.navigate(["login"]);
+        }
+      }
+    });   
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {

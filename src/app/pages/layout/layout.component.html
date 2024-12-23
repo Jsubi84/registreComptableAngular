@@ -4,36 +4,48 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span class="toolbar-spacer"></span>
-    <span class="numVersio">Ver. {{environment.version}}</span>
+    <span class="numVersio">Ver. {{ environment.version }}</span>
+    <button mat-icon-button (click)="passkey()">
+      <mat-icon>lock_reset</mat-icon>
+    </button>
     <button mat-icon-button (click)="users()">
-      <mat-icon >supervisor_account</mat-icon>    
+      <mat-icon>manage_accounts</mat-icon>
     </button>
     <button mat-icon-button (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>    
+      <mat-icon>exit_to_app</mat-icon>
     </button>
   </mat-toolbar>
   <mat-drawer-container class="sidenav-container">
     <mat-drawer #snav [mode]="isMobile ? 'over' : 'side'" opened>
       <mat-nav-list>
-        <span *ngFor="let item of menu">
+        <span *ngFor="let item of menubar">
           <span *ngIf="!item.children || item.children.length === 0">
-            <mat-list-item [routerLink]="[item.route]" [class.selected-list-item]="selectedItem === item" (click)="selectItemMenu(item)">
-              <div fxLayout="row" fxLayoutAlign="space-between center" class="lblApartat">
-                <mat-icon class="iconApartat" id="item.iconName">{{item.iconName}}</mat-icon>
-                &nbsp;{{item.displayName}}
+            <mat-list-item
+              [routerLink]="[item.route]"
+              [class.selected-list-item]="selectedItem === item"
+              (click)="selectItemMenu(item)"
+            >
+              <div
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+                class="lblApartat"
+              >
+                <mat-icon class="iconApartat" id="item.iconName">{{
+                  item.iconName
+                }}</mat-icon>
+                &nbsp;{{ item.displayName }}
               </div>
             </mat-list-item>
           </span>
         </span>
       </mat-nav-list>
-      <br>
-      <br>
+      <br />
+      <br />
     </mat-drawer>
     <mat-drawer-content class="content_outer_wrapper">
       <div class="content scrollable-component">
-        <router-outlet></router-outlet> 
+        <router-outlet></router-outlet>
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>
-  

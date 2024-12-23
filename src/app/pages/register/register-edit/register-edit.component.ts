@@ -95,13 +95,15 @@ export class RegisterEditComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.serviceSub.getSubcategorias().subscribe
-    (data=>{
-      this.options = data;}, 
-      error=>{
-        localStorage.removeItem('session_token');
-        this.router.navigate(["login"]);  
-    })    
+    this.serviceSub.getSubcategorias().subscribe({
+      next: data=>{
+        this.options = data;
+      }, error: (e)=>{
+        if (e.status == 401){
+          this.router.navigate(["login"]);
+        }
+      }
+    });  
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -110,9 +112,7 @@ export class RegisterEditComponent implements OnInit{
        }),
     );
     //Mirem si s'ha de recuperar dades o es registre nou
-    if (this.isEdit){
-      this.recuperar();
-    }
+    if (this.isEdit) this.recuperar();
   }
 
   Cancelar(){

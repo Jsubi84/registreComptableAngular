@@ -1,0 +1,36 @@
+<div class="container col-lg-5 d-flex flex-column pt-3 pb-5">
+  <div class="card">
+      <div class="card-header header">
+          <h1>Canvi de contrasenya</h1>
+      </div>
+      <div class="card-body">
+          <form [formGroup]="passkeyForm">
+            <div class="row">
+              <mat-form-field appearance="outline">
+                  <mat-label>Contrasenya actual</mat-label>
+                  <input matInput formControlName="oldpass" type="password" placeholder="*************" value="">
+                  <mat-error>Contraseña inválida</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+               <mat-form-field appearance="outline">
+                <mat-label>Contrasenya nova</mat-label>
+                <input matInput formControlName="newpass1" type="password" placeholder="*************" value="">
+                <mat-error>Contraseña inválida</mat-error>
+              </mat-form-field>             
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Repetir contrasenya nova </mat-label>
+                <input matInput formControlName="newpass2" type="password" placeholder="*************"  value="">
+                <mat-error>Contraseña inválida</mat-error>
+              </mat-form-field>              
+            </div>
+            <div class="buttons" style="display:flex ; justify-content: space-between; justify-items: center;">
+              <button mat-flat-button color="primary" type="submit" [disabled]="passkeyForm.invalid" class="btn btn-primary" (click)="actualitzar()">Actualitzar</button>
+              <button mat-flat-button color="link" class="btn btn-light" (click)="sortir()">Sortir</button>
+            </div>
+          </form>
+      </div>
+  </div>
+</div>

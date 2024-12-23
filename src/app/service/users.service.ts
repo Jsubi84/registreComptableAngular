@@ -34,4 +34,21 @@ export class UsersService {
   updateUser(user: User){
     return this.http.put(this.Url+"/update/"+user.id, user);
   }
+
+  resetPassword(user: User){
+    let body = {
+      password: "1234"
+    }; 
+    return this.http.post(this.Url+"/reset/"+user.id, body);
+  }
+
+  passwordRestore(userName: string, oldPassword: string, newPassword: string){
+    let body = {
+      userName: userName,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    }; 
+    console.log(body);
+    return this.http.post(this.Url+"/passwordRestore", body);
+  }
 }

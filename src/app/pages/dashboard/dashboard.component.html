@@ -19,37 +19,15 @@
                         </div>
                     </div>
                 </mat-card-header>
-                <mat-card-content *ngIf="!mobil">
-                    <div style="height:30vw;" class = "w-100 d-flex justify-content-center" >
+                <mat-card-content>
+                    <div style="height:auto;" class = "w-100 d-flex justify-content-center" >
                        <canvas id="yearTotals"></canvas>  
                     </div>
-                    <div class = "d-flex justify-content-around mx-5">
-                        <div class="titol">
-                            <mat-card-title><h2>T. despesa = {{totalDespesa.toFixed(2) }} €</h2></mat-card-title> 
-                        </div>    
-                        <div class="titol">
-                            <mat-card-title><h2>T. ingres = {{totalIngres.toFixed(2) }} €</h2></mat-card-title> 
-                        </div>  
-                        <div class="titol">
-                            <mat-card-title><h2>Diferencia = {{totalDif.toFixed(2) }} €</h2></mat-card-title> 
-                        </div>  
+                    <div class = "row">
+                        <h2 class="col-sm-4 text-center">T. despesa = {{totalDespesa.toFixed(2) }}€</h2>
+                        <h2 class="col-sm-4 text-center">T. ingres = {{totalIngres.toFixed(2) }}€</h2>
+                        <h2 class="col-sm-4 text-center">Diferencia = {{totalDif.toFixed(2) }}€</h2>  
                     </div>  
-                </mat-card-content>
-                <mat-card-content *ngIf="mobil"> 
-                    <div style="height:45vw;" class = "w-100 d-flex justify-content-center" >
-                        <canvas id="yearTotals"></canvas>  
-                    </div>
-                    <div class = "d-flex flex-column justify-content-center   mx-2">
-                        <div class="titol">
-                            <mat-card-title><h2>Total despesa = {{totalDespesa.toFixed(2) }} €</h2></mat-card-title> 
-                        </div>    
-                        <div class="titol">
-                            <mat-card-title><h2>Total ingres = {{totalIngres.toFixed(2) }} €</h2></mat-card-title> 
-                        </div>  
-                        <div class="titol">
-                            <mat-card-title><h2>Diferencia = {{totalDif.toFixed(2) }} €</h2></mat-card-title> 
-                        </div>  
-                    </div> 
                 </mat-card-content>
             </mat-card>
         </div>

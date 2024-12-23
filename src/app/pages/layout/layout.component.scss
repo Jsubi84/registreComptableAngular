@@ -1,39 +1,38 @@
-@import 'src/app/shared/shared-styles.scss';
+@import "src/app/shared/shared-styles.scss";
 
 ::ng-deep {
-    
-    .mat-drawer-content {
-        z-index: auto!important;
-        overflow: hidden !important;
-    }
-    
-    .mat-drawer-container {
-        z-index: auto!important;
-    }
+  .mat-drawer-content {
+    z-index: auto !important;
+    overflow: hidden !important;
+  }
 
-    .scrollable-component {
-        height: calc(100vh - 60px);
-        overflow: auto !important;
-    }
+  .mat-drawer-container {
+    z-index: auto !important;
+  }
+
+  .scrollable-component {
+    height: calc(100vh - 30px);
+    overflow: auto !important;
+  }
 }
 
-.layout-container{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    color: $color3 !important; // #eef5f9 !important;
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: $color3 !important; // #eef5f9 !important;
 }
 
-.content_outer_wrapper{
-    background-color: white !important;
+.content_outer_wrapper {
+  background-color: white !important;
 }
 
-.primaryColor{
-    color: $color2 ;
+.primaryColor {
+  color: $color2;
 }
 
 /***********************
@@ -41,81 +40,81 @@
 **********************/
 
 ::ng-deep .mat-menu-panel.mat-menu-panel {
-    color: $color2 !important;
-    background-color: $color2 !important;
+  color: $color2 !important;
+  background-color: $color2 !important;
 }
 
-.numVersio{
-    font-size: 14px !important;
-    color: rgba(0, 0, 0, 0.87);
-    opacity: 0.7;
-    margin: 0px;
-    padding-right: 10px ;
-    display: block;
+.numVersio {
+  font-size: 14px !important;
+  color: rgba(0, 0, 0, 0.87);
+  opacity: 0.7;
+  margin: 0px;
+  padding-right: 10px;
+  display: block;
 }
 
-.top-toolbar{
-    background-color: $color2  !important;
-    border-bottom: solid;
-    border-bottom-width: thin;
-    border-bottom-color: rgba(0, 0, 0, 0.125);
-    max-height: 30px;
+.top-toolbar {
+  background-color: $color2 !important;
+  border-bottom: solid;
+  border-bottom-width: thin;
+  border-bottom-color: rgba(0, 0, 0, 0.125);
+  max-height: 30px;
 }
 
-.toolbar-spacer{
-    flex: 1 1 auto;
+.toolbar-spacer {
+  flex: 1 1 auto;
 }
 
 /***********************
     LEFTSIDE NAV BAR
 ************************/
-.sidenav-container{
-    flex: 1;
-}
-  
-.device-is-mobile .sidenav-container{
-    flex: 1 0 auto;
+.sidenav-container {
+  flex: 1;
 }
 
-.lblNav{
-    color: rgba(0, 0, 0, 0.87);
-    opacity: 0.7;
-    margin: 0;
-    padding: 10px 25px;
-    text-transform: uppercase;
-    font-size: 12px;
-    display: block;
+.device-is-mobile .sidenav-container {
+  flex: 1 0 auto;
 }
 
-.lblApartat{
-    color: $color3 !important;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
+.lblNav {
+  color: rgba(0, 0, 0, 0.87);
+  opacity: 0.7;
+  margin: 0;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  font-size: 12px;
+  display: block;
 }
 
-.iconApartat{
-    color: $color3 !important;
+.lblApartat {
+  color: $color3 !important;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 
-.mat-drawer.mat-drawer-opened{
-    background-color:  $color2 !important;
+.iconApartat {
+  color: $color3 !important;
 }
 
-.selected-list-item{
-    background-color: $color3  !important;
-    .lblApartat{
-        color:  #FFF!important;
-    }
-    .iconApartat{
-        color:  #FFF !important;
-    }
+.mat-drawer.mat-drawer-opened {
+  background-color: $color2 !important;
 }
 
-.mat-expansion-panel{
-    background-color: $color1 !important;
+.selected-list-item {
+  background-color: $color3 !important;
+  .lblApartat {
+    color: #fff !important;
+  }
+  .iconApartat {
+    color: #fff !important;
+  }
+}
+
+.mat-expansion-panel {
+  background-color: $color1 !important;
 }
 .mat-expansion-panel-header {
-    padding: 0 16px;
+  padding: 0 16px;
 }
