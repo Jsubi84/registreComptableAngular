@@ -12,12 +12,12 @@ const LAYOUT_ROUTES:Routes = [
     component:LayoutComponent,
     children:[
       { path: '', redirectTo: 'dashboard',pathMatch: 'full' }, 
-      { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)},
-      { path: 'category', loadChildren: () => import('../category/category.module').then(m => m.CategoryModule)},
-      { path: 'subcategory', loadChildren: () => import('../subcategory/subcategory.module').then(m => m.SubcategoryModule)},
-      { path: 'register', loadChildren: () => import('../register/register.module').then(m => m.RegisterModule)},   
-      { path: 'users', loadChildren: () => import('../users/users.module').then(m => m.UsersModule)},   
-      { path: 'passkey', loadChildren: () => import('../pass-key/pass-key.module').then(m => m.PassKeyModule)},   
+      { path: 'dashboard', canActivate: [loginGuard], loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)},
+      { path: 'category', canActivate: [loginGuard], loadChildren: () => import('../category/category.module').then(m => m.CategoryModule)},
+      { path: 'subcategory', canActivate: [loginGuard], loadChildren: () => import('../subcategory/subcategory.module').then(m => m.SubcategoryModule)},
+      { path: 'register', canActivate: [loginGuard], loadChildren: () => import('../register/register.module').then(m => m.RegisterModule)},   
+      { path: 'users', canActivate: [loginGuard], loadChildren: () => import('../users/users.module').then(m => m.UsersModule)},   
+      { path: 'passkey', canActivate: [loginGuard], loadChildren: () => import('../pass-key/pass-key.module').then(m => m.PassKeyModule)},   
     ]
   }
 ];
