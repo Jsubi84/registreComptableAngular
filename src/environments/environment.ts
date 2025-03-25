@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     apiUrl: 'https://registrecomptabledeploy.onrender.com/api/v1/',
-    baseUrl: 'http://https://registrecomptabledeploy.onrender.com/auth/',
+    baseUrl: 'https://registrecomptabledeploy.onrender.com/auth/',
     version: '1.0.0'
 };
 
