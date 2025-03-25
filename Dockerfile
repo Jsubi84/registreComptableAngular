@@ -17,7 +17,7 @@ FROM httpd:2.4
 
 #COPY ANGULAR COMPILATION
 COPY --from=build /app/dist/registreComptable /usr/local/apache2/htdocs
-COPY /.htaccess /usr/local/apache2/htdocs
+COPY .htaccess /usr/local/apache2/htdocs
 
 #EXPOSE
 EXPOSE 80
