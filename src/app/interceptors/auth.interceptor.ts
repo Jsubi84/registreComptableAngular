@@ -34,7 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
       clonedRequest = request.clone({
         setHeaders: {
           Authorization: 'Bearer ' + this.cookiesServices.getSessionToken()!,
-          'Access-Control-Allow-Origin': '*'!,
+          'Access-Control-Allow-Origin': 'https://registrecomptabledeploy.onrender.com',
         },
       });
     } else {
