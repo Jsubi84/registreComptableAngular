@@ -1,6 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Manejar peticions OPTIONS per CORS
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ $1 [R=200,L]
+
     # Si el fitxer o directori existeix, serveix-lo directament
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -10,8 +14,8 @@
 </IfModule>
 
 <IfModule mod_headers.c>
-    Header Set Access-Control-Allow-Origin "https://registrecomptabledeploy.onrender.com"
-    Header Set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-    Header Set Access-Control-Allow-Headers "Content-Type, Authorization"
-    Header Set Access-Control-Allow-Credentials "true"
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Origin, Content-Type, Accept, Authorization"
 </IfModule>
+
