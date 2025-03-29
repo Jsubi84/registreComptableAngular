@@ -15,8 +15,8 @@ RUN npm run build --prod
 
 FROM httpd:2.4
 
-# Activar mod_rewrite
-RUN apachectl -M | grep -q 'rewrite_module' || apachectl -t && a2enmod rewrite
+# Habilitar mod_rewrite editant el fitxer de configuració d'Apache
+RUN echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /usr/local/apache2/conf/httpd.conf
 
 #COPY ANGULAR COMPILATION
 COPY --from=build /app/dist/registreComptable /usr/local/apache2/htdocs
