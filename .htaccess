@@ -10,7 +10,7 @@
     RewriteCond %{REQUEST_FILENAME} !-d
 
     # Si no, redirigeix totes les peticions a l'index.html
-    RewriteRule ^.*$ /index.html [L]
+    RewriteRule ^ /index.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -18,4 +18,3 @@
     Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
     Header set Access-Control-Allow-Headers "Origin, Content-Type, Accept, Authorization"
 </IfModule>
-
